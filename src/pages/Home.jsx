@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import VenueCard from "../components/VenueCard";
 
 export default function Home() {
   const [venues, setVenues] = useState([]);
@@ -13,5 +14,15 @@ export default function Home() {
     getData();
   }, []);
 
-  return <></>;
+  console.log("venues:", venues);
+
+  return (
+    <div>
+      <div className="flex flex-wrap justify-center gap-4 p-4">
+        {venues.map((venue) => (
+          <VenueCard venue={venue} key={venue.id} />
+        ))}
+      </div>
+    </div>
+  );
 }
