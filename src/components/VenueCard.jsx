@@ -43,14 +43,14 @@ export default function VenueCard({ venue }) {
           {venue.location.city}, {venue.location.country}
         </p>
         <div className="flex justify-between ">
-          <h2 className="text-xl">{venue.name}</h2>
+          <h2 className="text-xl font-bold">{venue.name}</h2>
           <div className="flex justify-center items-center">
             <FaStar />
             <p className="ml-0.5">{venue.rating}</p>
           </div>
         </div>
         <p>{shortenText(venue.description, 20)}</p>
-        <div className="flex items-center">
+        <div className="flex items-center mt-2">
           <FaUsers className="text-2xl" />
           <p className="ml-1">Max Guests: {venue.maxGuests}</p>
         </div>

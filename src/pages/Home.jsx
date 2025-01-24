@@ -14,7 +14,7 @@ export default function Home() {
     getData();
   }, []);
 
-  const firstVenues = venues.slice(0, 10);
+  const firstVenues = venues.slice(0, 20);
 
   return (
     <div>
