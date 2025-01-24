@@ -1,4 +1,12 @@
-import { FaWifi, FaParking, FaDog, FaUtensils, FaStar } from "react-icons/fa";
+import {
+  FaWifi,
+  FaParking,
+  FaDog,
+  FaUtensils,
+  FaStar,
+  FaUsers,
+  FaMoneyBillAlt,
+} from "react-icons/fa";
 import { shortenText } from "../js/utils/shortenText";
 
 const featuresInfo = {
@@ -42,8 +50,14 @@ export default function VenueCard({ venue }) {
           </div>
         </div>
         <p>{shortenText(venue.description, 20)}</p>
-        <p>Max Guests: {venue.maxGuests}</p>
-        <p>{venue.price} NOK per night</p>
+        <div className="flex items-center">
+          <FaUsers className="text-2xl" />
+          <p className="ml-1">Max Guests: {venue.maxGuests}</p>
+        </div>
+        <div className="flex items-center">
+          <FaMoneyBillAlt className="text-2xl" />
+          <p className="ml-1">{venue.price} NOK per night</p>
+        </div>
         <div className="flex justify-between mt-4">{renderFeatures()}</div>
       </div>
     </div>
