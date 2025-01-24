@@ -1,6 +1,6 @@
-import { FaWifi, FaParking, FaDog, FaUtensils } from "react-icons/fa";
+import { FaWifi, FaParking, FaDog, FaUtensils, FaStar } from "react-icons/fa";
 
-const amenitiesInfo = {
+const featuresInfo = {
   wifi: { label: "Wifi", Icon: FaWifi },
   breakfast: { label: "Breakfast", Icon: FaUtensils },
   parking: { label: "Parking", Icon: FaParking },
@@ -9,9 +9,9 @@ const amenitiesInfo = {
 
 export default function VenueCard({ venue }) {
   function renderFeatures() {
-    return Object.keys(amenitiesInfo).map((key) => {
+    return Object.keys(featuresInfo).map((key) => {
       if (venue.meta[key]) {
-        const { Icon, label } = amenitiesInfo[key];
+        const { Icon, label } = featuresInfo[key];
         return (
           <p key={key}>
             <Icon /> {label}
@@ -35,7 +35,10 @@ export default function VenueCard({ venue }) {
         </p>
         <div className="flex justify-between ">
           <h2 className="text-xl">{venue.name}</h2>
-          <span>{venue.rating}</span>
+          <div className="flex justify-center items-center">
+            <FaStar />
+            <p className="ml-0.5">{venue.rating}</p>
+          </div>
         </div>
         <p>{venue.description}</p>
         <p>Max Guests: {venue.maxGuests}</p>
