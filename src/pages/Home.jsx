@@ -14,12 +14,12 @@ export default function Home() {
     getData();
   }, []);
 
-  console.log("venues:", venues);
+  const firstVenues = venues.slice(0, 20);
 
   return (
     <div>
       <div className="flex flex-wrap justify-center gap-4 p-4">
-        {venues.map((venue) => (
+        {firstVenues.map((venue) => (
           <VenueCard venue={venue} key={venue.id} />
         ))}
       </div>
