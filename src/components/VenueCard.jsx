@@ -1,4 +1,5 @@
 import { FaWifi, FaParking, FaDog, FaUtensils, FaStar } from "react-icons/fa";
+import { shortenText } from "../js/utils/shortenText";
 
 const featuresInfo = {
   wifi: { label: "Wifi", Icon: FaWifi },
@@ -27,7 +28,7 @@ export default function VenueCard({ venue }) {
       <img
         src={venue.media[0].url}
         alt="/"
-        className="w-48 h-full object-cover rounded-t-lg"
+        className="w-full h-full object-cover rounded-t-lg"
       />
       <div className="p-2">
         <p className=" text-gray-500">
@@ -40,7 +41,7 @@ export default function VenueCard({ venue }) {
             <p className="ml-0.5">{venue.rating}</p>
           </div>
         </div>
-        <p>{venue.description}</p>
+        <p>{shortenText(venue.description, 20)}</p>
         <p>Max Guests: {venue.maxGuests}</p>
         <p>{venue.price} NOK per night</p>
         <div className="flex justify-between mt-4">{renderFeatures()}</div>
