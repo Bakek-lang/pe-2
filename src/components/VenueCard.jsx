@@ -1,4 +1,27 @@
+import { FaWifi, FaParking, FaDog, FaUtensils } from "react-icons/fa";
+
+const amenitiesInfo = {
+  wifi: { label: "Wifi", Icon: FaWifi },
+  breakfast: { label: "Breakfast", Icon: FaUtensils },
+  parking: { label: "Parking", Icon: FaParking },
+  pets: { label: "Pets", Icon: FaDog },
+};
+
 export default function VenueCard({ venue }) {
+  function renderFeatures() {
+    return Object.keys(amenitiesInfo).map((key) => {
+      if (venue.meta[key]) {
+        const { Icon, label } = amenitiesInfo[key];
+        return (
+          <p key={key}>
+            <Icon /> {label}
+          </p>
+        );
+      }
+      return null;
+    });
+  }
+
   return (
     <div className="rounded-lg shadow-lg max-w-sm m-4 pb-4 flex flex-col">
       <img
@@ -17,10 +40,7 @@ export default function VenueCard({ venue }) {
         <p>{venue.description}</p>
         <p>Max Guests: {venue.maxGuests}</p>
         <p>{venue.price} NOK per night</p>
-        {venue.meta.wifi && <p>Wifi</p>}
-        {venue.meta.breakfast && <p>Breakfast</p>}
-        {venue.meta.parking && <p>Parking</p>}
-        {venue.meta.pets && <p>Pets</p>}
+        <div className="flex justify-between mt-4">{renderFeatures()}</div>
       </div>
     </div>
   );
