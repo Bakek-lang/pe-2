@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchVenueById } from "../js/utils/fetchVenue";
+import { FaStar, FaUsers, FaMoneyBillAlt } from "react-icons/fa";
+import { renderFeatures } from "../js/utils/features";
 
 export default function VenuePage() {
   const [venue, setVenue] = useState(null);
@@ -46,8 +48,36 @@ export default function VenuePage() {
           className="w-full h-full object-cover rounded-t-lg"
         />
       </div>
+      <div className="flex justify-between items-center">
+        <div className="mt-2 flex items-center gap-3">
+          <img
+            src={venue.owner.avatar.url}
+            alt={venue.owner.avatar.url}
+            className="h-8 w-8 rounded-full object-cover"
+          />
+          <p className="text-sm">Managed by {venue.owner.name}</p>
+        </div>
+        <div className="flex items-center mt-1 ">
+          <p className="text-lg">{venue.rating}</p>
+          <FaStar className="ml-0.5" />
+        </div>
+      </div>
+      <p className=" text-gray-500 mt-2">
+        {venue.location.city}, {venue.location.country}
+      </p>
+
+      <h1 className="text-2xl ">{venue.name}</h1>
+      <p className="mt-2">{venue.description}</p>
+      <div className="flex items-center mt-2">
+        <FaUsers size={40} />
+        <p className="ml-1">Max Guests: {venue.maxGuests}</p>
+      </div>
+      <div className="flex items-center">
+        <FaMoneyBillAlt size={40} />
+        <p className="ml-1">{venue.price} NOK per night</p>
+      </div>
       <div>
-        <img src={venue.owner.avatar.url} alt={venue.owner.avatar.url} />
+        <div className="flex justify-between mt-4">{renderFeatures(venue)}</div>
       </div>
     </div>
   );
