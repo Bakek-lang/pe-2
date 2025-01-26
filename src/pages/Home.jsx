@@ -30,7 +30,12 @@ export default function Home() {
         {venues.map((venue, index) => (
           <VenueCard venue={venue} key={`${venue.id}-${index}`} />
         ))}
-        <button onClick={handleViewMore}>View More</button>
+        <button
+          onClick={handleViewMore}
+          className="px-3 py-2 bg-blue-500 rounded-lg text-white"
+        >
+          View More
+        </button>
       </div>
     </div>
   );
