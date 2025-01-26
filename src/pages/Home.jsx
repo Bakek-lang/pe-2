@@ -1,29 +1,36 @@
 import { useEffect, useState } from "react";
 import VenueCard from "../components/VenueCard";
+import { fetchVenues } from "../js/utils/api";
 
 export default function Home() {
   const [venues, setVenues] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    async function getData() {
-      const response = await fetch(
-        "https://v2.api.noroff.dev/holidaze/venues?limit=30"
-      );
-      const data = await response.json();
-      console.log("data", data);
-      setVenues(data.data);
-    }
-    getData();
-  }, []);
+    async function loadVenues() {
+      console.log("fetching page: ", page);
+      const newVenues = await fetchVenues(30, page);
+      console.log("this is newVenues: ", newVenues);
 
-  const firstVenues = venues.slice(0, 20);
+      const venuesWithImages = newVenues.filter(
+        (venue) => venue.media && venue.media.length > 0
+      );
+      setVenues((prev) => [...prev, ...venuesWithImages]);
+    }
+    loadVenues();
+  }, [page]);
+
+  function handleViewMore() {
+    setPage((prevPage) => prevPage + 1);
+  }
 
   return (
     <div>
       <div className="flex flex-wrap justify-center gap-4 p-4">
-        {firstVenues.map((venue, index) => (
+        {venues.map((venue, index) => (
           <VenueCard venue={venue} key={`${venue.id}-${index}`} />
         ))}
+        <button onClick={handleViewMore}>View More</button>
       </div>
     </div>
   );
