@@ -1,37 +1,9 @@
-import {
-  FaWifi,
-  FaParking,
-  FaDog,
-  FaUtensils,
-  FaStar,
-  FaUsers,
-  FaMoneyBillAlt,
-} from "react-icons/fa";
+import { FaStar, FaUsers, FaMoneyBillAlt } from "react-icons/fa";
 import { shortenText } from "../js/utils/shortenText";
 import { Link } from "react-router-dom";
-
-const featuresInfo = {
-  wifi: { label: "Wifi", Icon: FaWifi },
-  breakfast: { label: "Breakfast", Icon: FaUtensils },
-  parking: { label: "Parking", Icon: FaParking },
-  pets: { label: "Pets", Icon: FaDog },
-};
+import { renderFeatures } from "../js/utils/features";
 
 export default function VenueCard({ venue }) {
-  function renderFeatures() {
-    return Object.keys(featuresInfo).map((key) => {
-      if (venue.meta[key]) {
-        const { Icon, label } = featuresInfo[key];
-        return (
-          <p key={key}>
-            <Icon /> {label}
-          </p>
-        );
-      }
-      return null;
-    });
-  }
-
   return (
     <Link to={`venue/${venue.id}`}>
       <div className="rounded-lg shadow-lg max-w-sm m-4 pb-4 flex flex-col">
@@ -60,7 +32,9 @@ export default function VenueCard({ venue }) {
             <FaMoneyBillAlt className="text-2xl" />
             <p className="ml-1">{venue.price} NOK per night</p>
           </div>
-          <div className="flex justify-between mt-4">{renderFeatures()}</div>
+          <div className="flex justify-between mt-4">
+            {renderFeatures(venue)}
+          </div>
         </div>
       </div>
     </Link>
