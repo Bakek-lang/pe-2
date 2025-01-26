@@ -38,8 +38,17 @@ export default function VenuePage() {
   }
 
   return (
-    <div>
-      VENUE PAGE with id: {id}, and venue is: {venue.name}
+    <div className="flex flex-col justify-center p-4">
+      <div className="media-gallery">
+        <img
+          src={venue.media[0].url}
+          alt={venue.media[0].alt}
+          className="w-full h-full object-cover rounded-t-lg"
+        />
+      </div>
+      <div>
+        <img src={venue.owner.avatar.url} alt={venue.owner.avatar.url} />
+      </div>
     </div>
   );
 }
