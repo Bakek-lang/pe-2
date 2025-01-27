@@ -10,12 +10,15 @@ export default function SearchBar({ venues }) {
     const input = event.target.value;
     setSearchTerm(input);
 
-    const newFilteredVenues = venues.filter((venues) => {
-      return venues.title
+    const newFilteredVenues = venues.filter((venue) => {
+      return venue.name
         .toLowerCase()
         .split(" ")
         .some((word) => word.startsWith(input.toLowerCase()));
     });
+
+    console.log("Filtered venues: ", newFilteredVenues);
+    console.log("venues only", venues);
 
     setFilteredVenues(newFilteredVenues);
   }
@@ -39,11 +42,11 @@ export default function SearchBar({ venues }) {
               >
                 <div className="flex items-center">
                   <img
-                    src={venue.image.url}
-                    alt={venue.title}
+                    src={venue.media[0].url}
+                    alt={venue.name}
                     className="w-10 h-10"
                   />
-                  <h2 className="ml-2">{venue.title}</h2>
+                  <h2 className="ml-2">{venue.name}</h2>
                 </div>
               </li>
             ))}
