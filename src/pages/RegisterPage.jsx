@@ -60,36 +60,56 @@ export default function RegisterPage() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleInputChange}
-          placeholder="Name"
-        />
-        {errors.name && <div className="error">{errors.name}</div>}
+    <div className="flex flex-col items-center">
+      <h1 className="text-3xl">Register</h1>
+      <form className="max-w-xl py-8 px-4" onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label>Name</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            placeholder="Name"
+            className="border rounded w-full py-2 px-4 border-black"
+          />
+          {errors.name && <div className="text-red-500">{errors.name}</div>}
+        </div>
 
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          placeholder="Email"
-        />
-        {errors.email && <div className="error">{errors.email}</div>}
+        <div className="mb-4">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            placeholder="Email"
+            className="border rounded w-full py-2 px-4 border-black"
+          />
+          {errors.email && <div className="text-red-500">{errors.email}</div>}
+        </div>
 
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          placeholder="Password"
-        />
-        {errors.password && <div className="error">{errors.password}</div>}
+        <div className="mb-4">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            placeholder="Password"
+            className="border rounded w-full py-2 px-4 border-black"
+          />
+          {errors.password && (
+            <div className="text-red-500">{errors.password}</div>
+          )}
+        </div>
 
-        <button type="submit">Register</button>
+        <button
+          className="bg-blue-500 rounded-lg py-2 px-4 mt-2 text-white  "
+          type="submit"
+        >
+          Register
+        </button>
         {errors.api && <div className="error">{errors.api}</div>}
       </form>
     </div>
