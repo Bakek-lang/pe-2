@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import VenueCard from "../components/VenueCard";
 import { fetchVenues } from "../js/utils/api";
+import SearchBar from "../components/SearchBar";
 
 export default function Home() {
   const [venues, setVenues] = useState([]);
@@ -15,7 +16,16 @@ export default function Home() {
       const venuesWithImages = newVenues.filter(
         (venue) => venue.media && venue.media.length > 0
       );
-      setVenues((prev) => [...prev, ...venuesWithImages]);
+
+      setVenues((prev) => {
+        const existingIds = new Set(prev.map((v) => v.id));
+        const filteredNewVenues = venuesWithImages.filter(
+          (v) => !existingIds.has(v.id)
+        );
+        return [...prev, ...filteredNewVenues];
+      });
+
+      /*       setVenues((prev) => [...prev, ...venuesWithImages]); */
     }
     loadVenues();
   }, [page]);
@@ -26,7 +36,8 @@ export default function Home() {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-4 p-4">
+      <SearchBar venues={venues} />
+      <div className="flex flex-wrap justify-center gap-4 p-4 flex-col items-center">
         {venues.map((venue, index) => (
           <VenueCard venue={venue} key={`${venue.id}-${index}`} />
         ))}
