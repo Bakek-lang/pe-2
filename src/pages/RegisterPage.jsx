@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { validateEmail } from "../js/errorHandling/validate/validateEmail";
+import { validateName } from "../js/errorHandling/validate/validateName";
+import { validatePassword } from "../js/errorHandling/validate/validatePassword";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -19,10 +21,17 @@ export default function RegisterPage() {
   function validateForm() {
     const newErrors = {};
     if (!validateEmail(formData.email)) {
-      newErrors.email = "Invalid email address";
+      newErrors.email = "Please use a 'stud.noroff.no' email address.";
     }
 
-    console.log("this doesnt even get logged");
+    if (!validateName(formData.name)) {
+      newErrors.name =
+        "Name can only contain letters, numbers and underscores.";
+    }
+
+    if (!validatePassword(formData.password)) {
+      newErrors.password = "Password must be at least 8 characters.";
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -36,8 +45,6 @@ export default function RegisterPage() {
     }
 
     console.log("validation works");
-    console.log("formData", formData);
-    console.log("new errors: ", errors);
   }
 
   return (
