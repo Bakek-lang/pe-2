@@ -2,6 +2,7 @@ import { useState } from "react";
 import { validateEmail } from "../js/errorHandling/validate/validateEmail";
 import { validateName } from "../js/errorHandling/validate/validateName";
 import { validatePassword } from "../js/errorHandling/validate/validatePassword";
+import { registerUser } from "../js/API/registerFetch";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -42,6 +43,17 @@ export default function RegisterPage() {
     if (!validateForm()) {
       console.log("Validation failed");
       return;
+    }
+
+    try {
+      const result = await registerUser(
+        formData.name,
+        formData.email,
+        formData.password
+      );
+      console.log("Registration successful!", result);
+    } catch (error) {
+      console.log("Registration failed!", error.message);
     }
 
     console.log("validation works");
