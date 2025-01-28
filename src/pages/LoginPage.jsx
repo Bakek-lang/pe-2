@@ -5,6 +5,7 @@ export default function LoginPage() {
 
   return (
     <div>
+      {/* this is just test for create and persist from zustand */}
       <div className="flex flex-col items-center mb-52">
         <h1>Current Number: {number}</h1>
         <button onClick={increase}>Increase</button>
