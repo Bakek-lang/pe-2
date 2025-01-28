@@ -110,7 +110,6 @@ export default function RegisterPage() {
         >
           Register
         </button>
-        {errors.api && <div className="error">{errors.api}</div>}
       </form>
     </div>
   );
