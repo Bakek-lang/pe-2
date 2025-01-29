@@ -3,6 +3,7 @@ import useNumberStore from "../js/store/useNumberStore";
 import { validateEmail } from "../js/errorHandling/validate/validateEmail";
 import { loginUser } from "../js/API/loginFetch";
 import { validatePassword } from "../js/errorHandling/validate/validatePassword";
+import useAuthStore from "../js/store/useAuthStore";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ export default function LoginPage() {
     password: "",
   });
   const [errors, setErrors] = useState({});
+  const { setUser } = useAuthStore();
   const { number, increase, decrease, setNumber } = useNumberStore();
 
   function handleInputChange(event) {
@@ -42,8 +44,9 @@ export default function LoginPage() {
     }
 
     try {
-      const result = await loginUser(formData.email, formData.password);
-      console.log("Login successful!", result);
+      const user = await loginUser(formData.email, formData.password);
+      console.log("Login successful!", user);
+      setUser(user);
     } catch (error) {
       console.log("Login failed", error.message);
     }
