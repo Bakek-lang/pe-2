@@ -3,6 +3,7 @@ import { validateEmail } from "../js/errorHandling/validate/validateEmail";
 import { loginUser } from "../js/API/loginFetch";
 import { validatePassword } from "../js/errorHandling/validate/validatePassword";
 import useAuthStore from "../js/store/useAuthStore";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ export default function LoginPage() {
   });
   const [errors, setErrors] = useState({});
   const { setUser } = useAuthStore();
+  const navigate = useNavigate();
 
   function handleInputChange(event) {
     setFormData({
@@ -45,6 +47,7 @@ export default function LoginPage() {
       const user = await loginUser(formData.email, formData.password);
       console.log("Login successful!", user);
       setUser(user);
+      navigate("/");
     } catch (error) {
       console.log("Login failed", error.message);
     }
