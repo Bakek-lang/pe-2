@@ -12,6 +12,11 @@ export default function DropdownMenu() {
     setIsOpen((prevState) => !prevState);
   }
 
+  function onSignOut() {
+    clearUser();
+    setIsOpen(false);
+  }
+
   useEffect(() => {
     function onClickOutsideHandler(event) {
       if (
@@ -79,7 +84,10 @@ export default function DropdownMenu() {
               </NavLink>
             </li>
             <li>
-              <button className="block px-4 py-2 text-sm text-gray-700">
+              <button
+                onClick={onSignOut}
+                className="block px-4 py-2 text-sm text-gray-700"
+              >
                 Sign out
               </button>
             </li>
