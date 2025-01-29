@@ -50,6 +50,7 @@ export default function LoginPage() {
       navigate("/");
     } catch (error) {
       console.log("Login failed", error.message);
+      setErrors({ form: "Invalid email or password." });
     }
   }
 
@@ -84,7 +85,7 @@ export default function LoginPage() {
               <div className="text-red-500">{errors.password}</div>
             )}
           </div>
-
+          {errors.form && <div className="text-red-500">{errors.form}</div>}
           <button
             className="bg-blue-500 rounded-lg py-2 px-4 mt-2 text-white  "
             type="submit"
