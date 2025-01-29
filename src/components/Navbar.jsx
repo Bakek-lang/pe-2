@@ -3,9 +3,7 @@ import useAuthStore from "../js/store/useAuthStore";
 import DropdownMenu from "./DropdownMenu";
 
 export default function Navbar() {
-  const { isLoggedIn, user, clearUser } = useAuthStore();
-
-  console.log("user: ", user);
+  const { isLoggedIn, user } = useAuthStore();
 
   return (
     <nav>

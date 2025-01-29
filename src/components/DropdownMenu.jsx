@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import useAuthStore from "../js/store/useAuthStore";
 
 export default function DropdownMenu() {
-  const { isLoggedIn, user, clearUser } = useAuthStore();
+  const { user, clearUser } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const toggleContainer = useRef(null);
 
