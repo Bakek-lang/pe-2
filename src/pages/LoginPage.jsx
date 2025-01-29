@@ -12,7 +12,6 @@ export default function LoginPage() {
   });
   const [errors, setErrors] = useState({});
   const { setUser } = useAuthStore();
-  const { number, increase, decrease, setNumber } = useNumberStore();
 
   function handleInputChange(event) {
     setFormData({
@@ -56,13 +55,6 @@ export default function LoginPage() {
 
   return (
     <div>
-      {/* this is just test for create and persist from zustand */}
-      <div className="flex flex-col items-center mb-52">
-        <h1>Current Number: {number}</h1>
-        <button onClick={increase}>Increase</button>
-        <button onClick={decrease}>Decrease</button>
-        <button onClick={() => setNumber(100)}>Set to 100</button>
-      </div>
       <div className="flex flex-col items-center">
         <form className="wax-w-xl py-8 px-4" onSubmit={handleSubmit}>
           <div className="mb-4">
