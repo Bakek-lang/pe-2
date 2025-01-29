@@ -1,12 +1,13 @@
 import { useRef, useState, useEffect } from "react";
 import { CgProfile } from "react-icons/cg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAuthStore from "../js/store/useAuthStore";
 
 export default function DropdownMenu() {
   const { user, clearUser } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const toggleContainer = useRef(null);
+  const navigate = useNavigate();
 
   function onClickHandler() {
     setIsOpen((prevState) => !prevState);
@@ -15,6 +16,7 @@ export default function DropdownMenu() {
   function onSignOut() {
     clearUser();
     setIsOpen(false);
+    navigate("/");
   }
 
   useEffect(() => {
