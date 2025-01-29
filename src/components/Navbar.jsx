@@ -11,7 +11,16 @@ export default function Navbar() {
     <nav>
       <div className="relative max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <NavLink to="/">Holidaze</NavLink>
-        <DropdownMenu />
+        {isLoggedIn ? (
+          <DropdownMenu />
+        ) : (
+          <div className="flex justify-center items-center">
+            <NavLink to="/register">Register</NavLink>
+            <NavLink to="/login" className="ml-3">
+              Login
+            </NavLink>
+          </div>
+        )}
       </div>
     </nav>
   );
