@@ -56,6 +56,7 @@ export default function LoginPage() {
   return (
     <div>
       <div className="flex flex-col items-center">
+        <h1 className="text-3xl">Login</h1>
         <form className="wax-w-xl py-8 px-4" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label>Email</label>
