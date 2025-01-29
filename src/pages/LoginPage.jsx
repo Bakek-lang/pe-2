@@ -1,7 +1,19 @@
+import { useState } from "react";
 import useNumberStore from "../js/store/useNumberStore";
 
 export default function LoginPage() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
   const { number, increase, decrease, setNumber } = useNumberStore();
+
+  function handleInputChange(event) {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  }
 
   return (
     <div>
@@ -19,6 +31,8 @@ export default function LoginPage() {
             <input
               type="email"
               name="email"
+              value={formData.email}
+              onChange={handleInputChange}
               placeholder="Email"
               className="border rounded w-full py-2 px-4 border-black"
             />
@@ -29,6 +43,8 @@ export default function LoginPage() {
             <input
               type="password"
               name="password"
+              value={formData.password}
+              onChange={handleInputChange}
               placeholder="Password"
               className="border rounded w-full py-2 px-4 border-black"
             />
