@@ -1,5 +1,4 @@
 import { useState } from "react";
-import useNumberStore from "../js/store/useNumberStore";
 import { validateEmail } from "../js/errorHandling/validate/validateEmail";
 import { loginUser } from "../js/API/loginFetch";
 import { validatePassword } from "../js/errorHandling/validate/validatePassword";
@@ -49,8 +48,6 @@ export default function LoginPage() {
     } catch (error) {
       console.log("Login failed", error.message);
     }
-
-    console.log("Validation works");
   }
 
   return (
