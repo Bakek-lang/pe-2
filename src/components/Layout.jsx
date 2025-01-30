@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <>
       <Header />
-      <main className="flex-grow min-h-screen">
+      <main className="flex-grow min-h-screen p-4">
         <Outlet />
       </main>
       <Footer />
