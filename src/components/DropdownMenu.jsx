@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { CgProfile } from "react-icons/cg";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../js/store/useAuthStore";
 
 export default function DropdownMenu() {
@@ -8,6 +8,7 @@ export default function DropdownMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleContainer = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   function onClickHandler() {
     setIsOpen((prevState) => !prevState);
@@ -37,6 +38,10 @@ export default function DropdownMenu() {
       document.removeEventListener("mousedown", onClickOutsideHandler);
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
   return (
     <div ref={toggleContainer} className="flex items-center">
