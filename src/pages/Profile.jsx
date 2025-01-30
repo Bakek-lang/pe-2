@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useAuthStore from "../js/store/useAuthStore";
+import ProfileEditForm from "../components/ProfileEditForm";
 
 export default function Profile() {
   const { user } = useAuthStore();
@@ -48,7 +49,7 @@ export default function Profile() {
           <span>Venues</span>
         </div>
       ) : (
-        <div>Updating Profile</div>
+        <ProfileEditForm />
       )}
     </div>
   );
