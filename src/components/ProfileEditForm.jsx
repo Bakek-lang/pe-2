@@ -3,7 +3,7 @@ import useAuthStore from "../js/store/useAuthStore";
 import { updateUser } from "../js/API/updateUser";
 
 export default function ProfileEditForm() {
-  const { user, updateUserDetails } = useAuthStore();
+  const { user, updateUserDetails, accessToken } = useAuthStore();
   const [bio, setBio] = useState(user.data.bio);
   const [avatar, setAvatar] = useState(user.data.avatar.url);
 
@@ -23,7 +23,7 @@ export default function ProfileEditForm() {
     console.log("updated user data: ", updatedUserData);
 
     try {
-      const updatedUser = await updateUser(updatedUserData, user);
+      const updatedUser = await updateUser(updatedUserData, user, accessToken);
       console.log("Update user is successful!", updateUser);
       updateUserDetails(updatedUser);
     } catch (error) {
