@@ -3,6 +3,7 @@ import { validateEmail } from "../js/errorHandling/validate/validateEmail";
 import { validateName } from "../js/errorHandling/validate/validateName";
 import { validatePassword } from "../js/errorHandling/validate/validatePassword";
 import { registerUser } from "../js/API/registerFetch";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ export default function RegisterPage() {
     password: "",
   });
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   function handleInputChange(event) {
     setFormData({
@@ -52,6 +54,7 @@ export default function RegisterPage() {
         formData.password
       );
       console.log("Registration successful!", result);
+      navigate("/login");
     } catch (error) {
       console.log("Registration failed!", error.message);
     }

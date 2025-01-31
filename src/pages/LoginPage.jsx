@@ -3,6 +3,7 @@ import { validateEmail } from "../js/errorHandling/validate/validateEmail";
 import { loginUser } from "../js/API/loginFetch";
 import { validatePassword } from "../js/errorHandling/validate/validatePassword";
 import useAuthStore from "../js/store/useAuthStore";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ export default function LoginPage() {
   });
   const [errors, setErrors] = useState({});
   const { setUser } = useAuthStore();
+  const navigate = useNavigate();
 
   function handleInputChange(event) {
     setFormData({
@@ -44,15 +46,18 @@ export default function LoginPage() {
     try {
       const user = await loginUser(formData.email, formData.password);
       console.log("Login successful!", user);
-      setUser(user);
+      setUser(user, user.data.accessToken);
+      navigate("/");
     } catch (error) {
       console.log("Login failed", error.message);
+      setErrors({ form: "Invalid email or password." });
     }
   }
 
   return (
     <div>
       <div className="flex flex-col items-center">
+        <h1 className="text-3xl">Login</h1>
         <form className="wax-w-xl py-8 px-4" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label>Email</label>
@@ -80,7 +85,7 @@ export default function LoginPage() {
               <div className="text-red-500">{errors.password}</div>
             )}
           </div>
-
+          {errors.form && <div className="text-red-500">{errors.form}</div>}
           <button
             className="bg-blue-500 rounded-lg py-2 px-4 mt-2 text-white  "
             type="submit"
