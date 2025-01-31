@@ -8,6 +8,10 @@ const useAuthStore = create(
       isLoggedIn: false,
       setUser: (user) => set({ user, isLoggedIn: !!user }),
       clearUser: () => set({ user: null, isLoggedIn: false }),
+      updateUserDetails: (newDetails) =>
+        set((state) => ({
+          user: { ...state.user, ...newDetails },
+        })),
     }),
     {
       name: "auth-store",
