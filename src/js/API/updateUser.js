@@ -1,6 +1,6 @@
 import { API_BASE, API_HOLIDAZE, API_KEY, API_PROFILES } from "./constants";
 
-export async function updateUser(userData, user) {
+export async function updateUser(userData, user, accessToken) {
   console.log("Access token: ", user.data.accessToken);
   console.log("NAme: ", user.data.name);
   const response = await fetch(
@@ -8,7 +8,7 @@ export async function updateUser(userData, user) {
     {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${user.data.accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
         "X-Noroff-API-Key": API_KEY,
         "Content-Type": "application/json",
       },
