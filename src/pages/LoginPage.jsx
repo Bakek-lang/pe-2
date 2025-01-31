@@ -46,7 +46,7 @@ export default function LoginPage() {
     try {
       const user = await loginUser(formData.email, formData.password);
       console.log("Login successful!", user);
-      setUser(user);
+      setUser(user, user.data.accessToken);
       navigate("/");
     } catch (error) {
       console.log("Login failed", error.message);
