@@ -6,8 +6,11 @@ const useAuthStore = create(
     (set) => ({
       user: null,
       isLoggedIn: false,
-      setUser: (user) => set({ user, isLoggedIn: !!user }),
-      clearUser: () => set({ user: null, isLoggedIn: false }),
+      accessToken: null,
+      setUser: (user, token) =>
+        set({ user, isLoggedIn: !!user, accessToken: token }),
+      clearUser: () =>
+        set({ user: null, isLoggedIn: false, accessToken: null }),
       updateUserDetails: (newDetails) =>
         set((state) => ({
           user: { ...state.user, ...newDetails },
