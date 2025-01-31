@@ -1,14 +1,34 @@
 import { useState } from "react";
 import useAuthStore from "../js/store/useAuthStore";
+import { updateUser } from "../js/API/updateUser";
 
 export default function ProfileEditForm() {
-  const { user } = useAuthStore();
-  const [name, setName] = useState(user.data.name);
+  const { user, updateUserDetails } = useAuthStore();
   const [bio, setBio] = useState(user.data.bio);
   const [avatar, setAvatar] = useState(user.data.avatar.url);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+
+    const updatedUserData = {
+      ...user.data,
+      bio: bio,
+      avatar: {
+        ...user.data.avatar,
+        url: avatar,
+      },
+    };
+
+    console.log("user: ", user);
+    console.log("updated user data: ", updatedUserData);
+
+    try {
+      const updatedUser = await updateUser(updatedUserData, user);
+      console.log("Update user is successful!", updateUser);
+      updateUserDetails(updatedUser);
+    } catch (error) {
+      console.log("Updating user failed", error.message);
+    }
   }
 
   return (
@@ -19,15 +39,9 @@ export default function ProfileEditForm() {
         onChange={(event) => setAvatar(event.target.value)}
         className="mb-2 p-1 border border-black rounded"
       />
-      <input
-        type="text"
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-        className="mb-2 p-1 border border-black rounded"
-        placeholder="Name"
-      />
       <textarea
-        value={bio || "No bio yet."}
+        value={bio || ""}
+        placeholder="No bio yet."
         onChange={(event) => setBio(event.target.value)}
         className="mb-2 p-1 border border-black rounded"
       ></textarea>
