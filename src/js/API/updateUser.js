@@ -1,7 +1,8 @@
-import useAuthStore from "../store/useAuthStore";
 import { API_BASE, API_HOLIDAZE, API_KEY, API_PROFILES } from "./constants";
 
 export async function updateUser(userData, user) {
+  console.log("Access token: ", user.data.accessToken);
+  console.log("NAme: ", user.data.name);
   const response = await fetch(
     API_BASE + API_HOLIDAZE + API_PROFILES + "/" + user.data.name,
     {
