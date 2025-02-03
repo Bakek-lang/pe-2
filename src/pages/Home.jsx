@@ -24,8 +24,6 @@ export default function Home() {
         );
         return [...prev, ...filteredNewVenues];
       });
-
-      /*       setVenues((prev) => [...prev, ...venuesWithImages]); */
     }
     loadVenues();
   }, [page]);

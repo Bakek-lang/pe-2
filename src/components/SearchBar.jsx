@@ -40,8 +40,6 @@ export default function SearchBar() {
 
         allVenues = allVenues.concat(venuesWithImages);
 
-        console.log("ALL VENUES:", allVenues);
-
         pageCount = data.meta.pageCount;
         currentPage++;
       } while (currentPage <= pageCount);
