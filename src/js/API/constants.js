@@ -5,3 +5,5 @@ export const API_REGISTER = "/register";
 export const API_LOGIN = "/login";
 export const API_PROFILES = "/profiles";
 export const API_HOLIDAZE = "/holidaze";
+export const API_VENUES = "/venues";
+export const API_SEARCH = "/search";
