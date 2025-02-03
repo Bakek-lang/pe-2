@@ -12,6 +12,10 @@ export default function VenueCard({ venue }) {
           src={venue.media[0].url}
           alt="/"
           className="w-full h-full object-cover rounded-t-lg"
+          onError={(event) => {
+            event.target.onerror = null;
+            event.target.src = "https://placehold.co/600x400";
+          }}
         />
         <div className="p-2">
           <p className=" text-gray-500">
