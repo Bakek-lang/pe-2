@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { CgProfile } from "react-icons/cg";
+import { IoIosCheckmarkCircle } from "react-icons/io";
+import { FaCircleXmark } from "react-icons/fa6";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../js/store/useAuthStore";
 
@@ -72,8 +74,13 @@ export default function DropdownMenu() {
             <span className="block text-sm text-gray-400">
               {user.data.email}
             </span>
-            <div className="mt-4">
-              <span>Venue Manager:</span>
+            <div className="mt-4 flex  items-center">
+              <span className="mr-2">Venue Manager:</span>
+              {user.data.venueManager ? (
+                <IoIosCheckmarkCircle color="green" size={20} />
+              ) : (
+                <FaCircleXmark color="red" size={20} />
+              )}
             </div>
           </div>
           <ul className="py-2">
