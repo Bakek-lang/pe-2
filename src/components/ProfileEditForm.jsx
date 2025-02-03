@@ -6,6 +6,9 @@ export default function ProfileEditForm() {
   const { user, updateUserDetails, accessToken } = useAuthStore();
   const [bio, setBio] = useState(user.data.bio);
   const [avatar, setAvatar] = useState(user.data.avatar.url);
+  const [venueManager, setVenueManager] = useState(user.data.venueManager);
+
+  console.log("Venue manager status: ", venueManager);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -17,6 +20,7 @@ export default function ProfileEditForm() {
         ...user.data.avatar,
         url: avatar,
       },
+      venueManager: venueManager,
     };
 
     console.log("user: ", user);
@@ -24,7 +28,7 @@ export default function ProfileEditForm() {
 
     try {
       const updatedUser = await updateUser(updatedUserData, user, accessToken);
-      console.log("Update user is successful!", updateUser);
+      console.log("Update user is successful!", updatedUser);
       updateUserDetails(updatedUser);
     } catch (error) {
       console.log("Updating user failed", error.message);
@@ -49,7 +53,12 @@ export default function ProfileEditForm() {
         ></textarea>
         <div className="flex gap-4 text-xl">
           <label>Venue Manager:</label>
-          <input type="checkbox" className="w-6 h-6" />
+          <input
+            type="checkbox"
+            className="w-6 h-6"
+            checked={venueManager}
+            onChange={() => setVenueManager((prev) => !prev)}
+          />
         </div>
 
         <div className="flex justify-center ">
