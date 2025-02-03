@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import VenueCard from "../components/VenueCard";
 import { fetchVenues } from "../js/utils/api";
 import SearchBar from "../components/SearchBar";
+import { isValidUrl } from "../js/utils/isValidUrl";
 
 export default function Home() {
   const [venues, setVenues] = useState([]);
@@ -14,7 +15,10 @@ export default function Home() {
       console.log("this is newVenues: ", newVenues);
 
       const venuesWithImages = newVenues.filter(
-        (venue) => venue.media && venue.media.length > 0
+        (venue) =>
+          venue.media &&
+          venue.media.length > 0 &&
+          isValidUrl(venue.media[0].url)
       );
 
       setVenues((prev) => {
