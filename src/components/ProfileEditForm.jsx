@@ -1,12 +1,15 @@
 import { useState } from "react";
 import useAuthStore from "../js/store/useAuthStore";
 import { updateUser } from "../js/API/updateUser";
+import useNotificationStore from "../js/store/useNotificationStore";
 
 export default function ProfileEditForm() {
   const { user, updateUserDetails, accessToken } = useAuthStore();
   const [bio, setBio] = useState(user.data.bio);
   const [avatar, setAvatar] = useState(user.data.avatar.url);
   const [venueManager, setVenueManager] = useState(user.data.venueManager);
+
+  const { addNotification } = useNotificationStore();
 
   console.log("Venue manager status: ", venueManager);
 
@@ -30,8 +33,10 @@ export default function ProfileEditForm() {
       const updatedUser = await updateUser(updatedUserData, user, accessToken);
       console.log("Update user is successful!", updatedUser);
       updateUserDetails(updatedUser);
+      addNotification("Profile updated successfully!", "success");
     } catch (error) {
       console.log("Updating user failed", error.message);
+      addNotification("Failed to update profile.", "error");
     }
   }
 

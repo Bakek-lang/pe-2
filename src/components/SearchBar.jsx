@@ -7,6 +7,7 @@ import {
   API_SEARCH,
   API_VENUES,
 } from "../js/API/constants";
+import { isValidUrl } from "../js/utils/isValidUrl";
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,7 +36,10 @@ export default function SearchBar() {
         const data = await response.json();
 
         const venuesWithImages = data.data.filter(
-          (venue) => venue.media && venue.media.length > 0
+          (venue) =>
+            venue.media &&
+            venue.media.length > 0 &&
+            isValidUrl(venue.media[0].url)
         );
 
         allVenues = allVenues.concat(venuesWithImages);
@@ -85,6 +89,10 @@ export default function SearchBar() {
                     src={venue.media[0].url}
                     alt={venue.name}
                     className="w-10 h-10"
+                    onError={(event) => {
+                      event.target.onerror = null;
+                      event.target.src = "https://placehold.co/600x400";
+                    }}
                   />
                   <h2 className="ml-2">{shortenTitle(venue.name, 14)}</h2>
                 </div>
