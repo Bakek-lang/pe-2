@@ -13,6 +13,41 @@ export default function SearchBar() {
   const [venues, setVenues] = useState([]);
   const navigate = useNavigate();
 
+  async function fetchAllVenues(query) {
+    let allVenues = [];
+    let currentPage = 1;
+    let pageCount = 1;
+
+    try {
+      do {
+        const response = await fetch(
+          API_BASE + API_HOLIDAZE + API_VENUES + API_SEARCH + `?q=${query}`
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch search results");
+        }
+
+        const data = await response.json();
+
+        const venuesWithImages = data.data.filter(
+          (venue) => venue.media && venue.media.length > 0
+        );
+
+        allVenues = allVenues.concat(venuesWithImages);
+
+        console.log("ALL VENUES:", allVenues);
+
+        pageCount = data.meta.pageCount;
+        currentPage++;
+      } while (currentPage <= pageCount);
+    } catch (error) {
+      console.log("Error fetching all pages: ", error);
+    }
+
+    return allVenues;
+  }
+
   async function handleSearchChange(event) {
     const input = event.target.value;
     setSearchTerm(input);
@@ -22,26 +57,8 @@ export default function SearchBar() {
       return;
     }
 
-    try {
-      const response = await fetch(
-        API_BASE + API_HOLIDAZE + API_VENUES + API_SEARCH + `?q=${input}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch search results");
-      }
-
-      const data = await response.json();
-
-      const venuesWithImages = data.data.filter(
-        (venue) => venue.media && venue.media.length > 0
-      );
-
-      setVenues(venuesWithImages);
-    } catch (error) {
-      console.error("Error fetching search results: ", error);
-      setVenues([]);
-    }
+    const allVenues = await fetchAllVenues(input);
+    setVenues(allVenues);
   }
   return (
     <div className="flex justify-center mt-2">
