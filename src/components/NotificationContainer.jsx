@@ -5,7 +5,7 @@ export default function NotificationContainer() {
   const { notifications } = useNotificationStore();
 
   return (
-    <div className="fixed top-5 left-5 flex flex-col gap-2 z-50">
+    <div className="fixed bottom-5 right-5 flex flex-col gap-2 z-50">
       {notifications.map((notification) => (
         <div
           key={notification.id}
