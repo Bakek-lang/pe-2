@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { shortenTitle } from "../js/utils/shortenTitle";
 
 export default function SearchBar({ venues }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -46,7 +47,7 @@ export default function SearchBar({ venues }) {
                     alt={venue.name}
                     className="w-10 h-10"
                   />
-                  <h2 className="ml-2">{venue.name}</h2>
+                  <h2 className="ml-2">{shortenTitle(venue.name, 14)}</h2>
                 </div>
               </li>
             ))}
