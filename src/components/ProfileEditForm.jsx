@@ -8,7 +8,6 @@ export default function ProfileEditForm() {
   const [bio, setBio] = useState(user.data.bio);
   const [avatar, setAvatar] = useState(user.data.avatar.url);
   const [venueManager, setVenueManager] = useState(user.data.venueManager);
-  const [message, setMessage] = useState("");
 
   const { addNotification } = useNotificationStore();
 
@@ -16,7 +15,6 @@ export default function ProfileEditForm() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    setMessage("");
 
     const updatedUserData = {
       ...user.data,
@@ -35,11 +33,9 @@ export default function ProfileEditForm() {
       const updatedUser = await updateUser(updatedUserData, user, accessToken);
       console.log("Update user is successful!", updatedUser);
       updateUserDetails(updatedUser);
-      setMessage("Profile updated successfully!");
       addNotification("Profile updated successfully!", "success");
     } catch (error) {
       console.log("Updating user failed", error.message);
-      setMessage("Failed to update profile.");
       addNotification("Failed to update profile.", "error");
     }
   }
@@ -78,7 +74,6 @@ export default function ProfileEditForm() {
             Save Changes
           </button>
         </div>
-        {message && <p className="text-green-500 mt-2">{message}</p>}
       </form>
     </div>
   );
