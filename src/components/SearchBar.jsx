@@ -21,7 +21,11 @@ export default function SearchBar() {
     try {
       do {
         const response = await fetch(
-          API_BASE + API_HOLIDAZE + API_VENUES + API_SEARCH + `?q=${query}`
+          API_BASE +
+            API_HOLIDAZE +
+            API_VENUES +
+            API_SEARCH +
+            `?q=${query}&page=${currentPage}`
         );
 
         if (!response.ok) {
