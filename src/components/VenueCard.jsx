@@ -2,6 +2,7 @@ import { FaStar, FaUsers, FaMoneyBillAlt } from "react-icons/fa";
 import { shortenText } from "../js/utils/shortenText";
 import { Link } from "react-router-dom";
 import { renderFeatures } from "../js/utils/features";
+import { shortenTitle } from "../js/utils/shortenTitle";
 
 export default function VenueCard({ venue }) {
   return (
@@ -17,7 +18,9 @@ export default function VenueCard({ venue }) {
             {venue.location.city}, {venue.location.country}
           </p>
           <div className="flex justify-between ">
-            <h2 className="text-xl font-bold">{venue.name}</h2>
+            <h2 className="text-xl font-bold">
+              {shortenTitle(venue.name, 15)}
+            </h2>
             <div className="flex justify-center items-center">
               <FaStar />
               <p className="ml-0.5">{venue.rating}</p>

@@ -19,7 +19,7 @@ export async function updateUser(userData, user, accessToken) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || "Login failed");
+    throw new Error(errorData.message || "Failed to update user");
   }
 
   return response.json();
