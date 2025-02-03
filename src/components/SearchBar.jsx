@@ -32,7 +32,6 @@ export default function SearchBar() {
       }
 
       const data = await response.json();
-      console.log("DATA FROM SEARCH BAR:", data);
 
       const venuesWithImages = data.data.filter(
         (venue) => venue.media && venue.media.length > 0
