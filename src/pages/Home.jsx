@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <div>
-      <SearchBar venues={venues} />
+      <SearchBar />
       <div className="flex flex-wrap justify-center gap-4 p-4 flex-col items-center">
         {venues.map((venue, index) => (
           <VenueCard venue={venue} key={`${venue.id}-${index}`} />
