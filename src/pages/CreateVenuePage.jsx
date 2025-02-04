@@ -1,36 +1,59 @@
 import { useState } from "react";
+import { createVenue } from "../js/API/createVenue";
+import useAuthStore from "../js/store/useAuthStore";
+import useNotificationStore from "../js/store/useNotificationStore";
 
 export default function CreateVenuePage() {
-  const [title, setTitle] = useState("");
+  const { accessToken } = useAuthStore();
+  const { addNotification } = useNotificationStore();
+
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [price, setPrice] = useState("");
   const [maxGuests, setMaxGuests] = useState("");
   const [rating, setRating] = useState("");
 
-  const venueData = {
-    title,
-    description,
-    media: [
-      {
-        url: imageUrl,
-        alt: `Image of ${title}`,
-      },
-    ],
-    price: Number(price),
-    maxGuests: Number(maxGuests),
-    rating: Number(rating),
-  };
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const venueData = {
+      name,
+      description,
+      ...(imageUrl && {
+        media: [
+          {
+            url: imageUrl,
+            alt: `Image of ${name}`,
+          },
+        ],
+      }),
+      price: Number(price),
+      maxGuests: Number(maxGuests),
+      rating: parseFloat(rating),
+    };
+
+    console.log("VENUE DATA: ", venueData);
+
+    try {
+      const createdVenue = await createVenue(venueData, accessToken);
+      console.log("Created Venue", createdVenue);
+      addNotification("Created Venue successfully!", "success");
+    } catch (error) {
+      console.log("Creating venue failed", error.message);
+      addNotification("Failed to create a venue.", "error");
+    }
+  }
 
   return (
     <div className="max-w-lg mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Create a Venue</h1>
-      <form className="flex flex-col gap-3">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <input
           type="text"
           placeholder="Venue Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
           className="p-2 border rounded"
         />
@@ -48,7 +71,6 @@ export default function CreateVenuePage() {
           placeholder="Image URL"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
-          required
           className="p-2 border rounded"
         />
 
