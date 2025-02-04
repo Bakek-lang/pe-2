@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import VenuePage from "./pages/VenuePage";
@@ -6,8 +6,11 @@ import PageNotFound from "./pages/PageNotFound";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import Profile from "./pages/Profile";
+import useAuthStore from "./js/store/useAuthStore";
+import CreateVenuePage from "./pages/CreateVenuePage";
 
 export default function App() {
+  const { user } = useAuthStore();
   return (
     <>
       <Routes>
@@ -17,6 +20,12 @@ export default function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/create-venue"
+            element={
+              user.data.venueManager ? <CreateVenuePage /> : <Navigate to="/" />
+            }
+          />
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>
