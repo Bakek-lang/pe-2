@@ -58,6 +58,10 @@ export default function VenuePage() {
             src={venue.owner.avatar.url}
             alt={venue.owner.avatar.url}
             className="h-8 w-8 rounded-full object-cover"
+            onError={(event) => {
+              event.target.onerror = null;
+              event.target.src = "https://placehold.co/600x400";
+            }}
           />
           <p className="text-sm">Managed by {venue.owner.name}</p>
         </div>
