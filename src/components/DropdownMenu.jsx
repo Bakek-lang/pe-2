@@ -100,7 +100,7 @@ export default function DropdownMenu() {
             {user.data.venueManager && (
               <li>
                 <NavLink
-                  to="/"
+                  to="/create-venue"
                   className="block px-4 py-2 text-sm text-gray-700"
                 >
                   Create a Venue
