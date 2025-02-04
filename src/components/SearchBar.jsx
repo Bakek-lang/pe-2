@@ -12,6 +12,7 @@ import { isValidUrl } from "../js/utils/isValidUrl";
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [venues, setVenues] = useState([]);
+  const [hasMoreResults, setHasMoreResults] = useState(false);
   const navigate = useNavigate();
 
   async function fetchAllVenues(query) {
@@ -64,7 +65,10 @@ export default function SearchBar() {
     }
 
     const allVenues = await fetchAllVenues(input);
-    setVenues(allVenues);
+    const limitedVenues = allVenues.slice(0, 8);
+    setVenues(limitedVenues);
+
+    setHasMoreResults(allVenues.length > 8);
   }
   return (
     <div className="flex justify-center mt-2">
@@ -98,6 +102,11 @@ export default function SearchBar() {
                 </div>
               </li>
             ))}
+            {hasMoreResults && (
+              <li className="p-2 italic text-gray-500">
+                More results available...
+              </li>
+            )}
           </ul>
         )}
       </div>

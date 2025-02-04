@@ -58,6 +58,10 @@ export default function VenuePage() {
             src={venue.owner.avatar.url}
             alt={venue.owner.avatar.url}
             className="h-8 w-8 rounded-full object-cover"
+            onError={(event) => {
+              event.target.onerror = null;
+              event.target.src = "https://placehold.co/600x400";
+            }}
           />
           <p className="text-sm">Managed by {venue.owner.name}</p>
         </div>
@@ -66,8 +70,12 @@ export default function VenuePage() {
           <FaStar className="ml-0.5" />
         </div>
       </div>
-      <p className=" text-gray-500 mt-2">
-        {venue.location.city}, {venue.location.country}
+      <p className="text-gray-500">
+        {venue.location?.country
+          ? venue.location.city
+            ? `${venue.location.city}, ${venue.location.country}`
+            : venue.location.country
+          : "Location not available"}
       </p>
 
       <h1 className="text-2xl ">{venue.name}</h1>

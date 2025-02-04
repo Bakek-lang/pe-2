@@ -97,6 +97,16 @@ export default function DropdownMenu() {
                 View Venues
               </NavLink>
             </li>
+            {user.data.venueManager && (
+              <li>
+                <NavLink
+                  to="/create-venue"
+                  className="block px-4 py-2 text-sm text-gray-700"
+                >
+                  Create a Venue
+                </NavLink>
+              </li>
+            )}
             <li>
               <button
                 onClick={onSignOut}
