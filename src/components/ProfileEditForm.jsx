@@ -7,11 +7,11 @@ export default function ProfileEditForm() {
   const { user, updateUserDetails, accessToken } = useAuthStore();
   const [bio, setBio] = useState(user.data.bio);
   const [avatar, setAvatar] = useState(user.data.avatar.url);
-  const [venueManager, setVenueManager] = useState(user.data.venueManager);
+  const [venueManager, setVenueManager] = useState(
+    user.data.venueManager ?? false
+  );
 
   const { addNotification } = useNotificationStore();
-
-  console.log("Venue manager status: ", venueManager);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -25,9 +25,6 @@ export default function ProfileEditForm() {
       },
       venueManager: venueManager,
     };
-
-    console.log("user: ", user);
-    console.log("updated user data: ", updatedUserData);
 
     try {
       const updatedUser = await updateUser(updatedUserData, user, accessToken);
