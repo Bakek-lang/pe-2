@@ -7,14 +7,14 @@ import { fetchVenuesByProfile } from "../js/API/fetchVenuesByProfile";
 import VenueCard from "../components/VenueCard";
 
 export default function Profile() {
-  const { user } = useAuthStore();
+  const { user, accessToken } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
   const [venues, setVenues] = useState([]);
 
   useEffect(() => {
     if (!user) return;
     async function loadVenues() {
-      const profileVenues = await fetchVenuesByProfile(user);
+      const profileVenues = await fetchVenuesByProfile(user, accessToken);
       console.log("This is profileVenues:", profileVenues);
       setVenues(profileVenues);
     }
