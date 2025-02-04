@@ -18,8 +18,12 @@ export default function VenueCard({ venue }) {
           }}
         />
         <div className="p-2">
-          <p className=" text-gray-500">
-            {venue.location.city}, {venue.location.country}
+          <p className="text-gray-500">
+            {venue.location?.country
+              ? venue.location.city
+                ? `${venue.location.city}, ${venue.location.country}`
+                : venue.location.country
+              : "Location not available"}
           </p>
           <div className="flex justify-between ">
             <h2 className="text-xl font-bold">
