@@ -1,6 +1,8 @@
 import { useState } from "react";
 import useAuthStore from "../js/store/useAuthStore";
 import ProfileEditForm from "../components/ProfileEditForm";
+import { IoIosCheckmarkCircle } from "react-icons/io";
+import { FaCircleXmark } from "react-icons/fa6";
 
 export default function Profile() {
   const { user } = useAuthStore();
@@ -22,7 +24,15 @@ export default function Profile() {
           />
         </div>
         <h1 className="text-3xl font-medium">{user.data.name}</h1>
-        <span className="mb-3">{user.data.bio || "No bio yet."}</span>
+        <span className="">{user.data.bio || "No bio yet."}</span>
+        <div className=" mb-3 flex  items-center">
+          <span className="mr-2">Venue Manager:</span>
+          {user.data.venueManager ? (
+            <IoIosCheckmarkCircle color="green" size={30} />
+          ) : (
+            <FaCircleXmark color="red" size={30} />
+          )}
+        </div>
         <button
           onClick={onEditingHandler}
           className="py-2 px-3 bg-blue-500 rounded-lg text-white mb-3"
