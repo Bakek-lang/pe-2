@@ -70,8 +70,12 @@ export default function VenuePage() {
           <FaStar className="ml-0.5" />
         </div>
       </div>
-      <p className=" text-gray-500 mt-2">
-        {venue.location.city}, {venue.location.country}
+      <p className="text-gray-500">
+        {venue.location?.country
+          ? venue.location.city
+            ? `${venue.location.city}, ${venue.location.country}`
+            : venue.location.country
+          : "Location not available"}
       </p>
 
       <h1 className="text-2xl ">{venue.name}</h1>
