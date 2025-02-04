@@ -3,6 +3,8 @@ import useAuthStore from "../js/store/useAuthStore";
 import ProfileEditForm from "../components/ProfileEditForm";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { FaCircleXmark } from "react-icons/fa6";
+import { fetchVenuesByProfile } from "../js/API/fetchVenuesByProfile";
+import VenueCard from "../components/VenueCard";
 
 export default function Profile() {
   const { user } = useAuthStore();
@@ -10,12 +12,15 @@ export default function Profile() {
   const [venues, setVenues] = useState([]);
 
   useEffect(() => {
+    if (!user) return;
     async function loadVenues() {
-      console.log("hello");
+      const profileVenues = await fetchVenuesByProfile(user);
+      console.log("This is profileVenues:", profileVenues);
+      setVenues(profileVenues);
     }
 
     loadVenues();
-  }, []);
+  }, [user]);
 
   function onEditingHandler() {
     setIsEditing(true);
@@ -51,21 +56,9 @@ export default function Profile() {
       </div>
       {!isEditing ? (
         <div className="flex flex-col">
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
-          <span>Venues</span>
+          {venues.map((venue, index) => (
+            <VenueCard venue={venue} key={`${venue.id}-${index}`} />
+          ))}
         </div>
       ) : (
         <ProfileEditForm />
