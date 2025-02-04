@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useAuthStore from "../js/store/useAuthStore";
 import ProfileEditForm from "../components/ProfileEditForm";
 import { IoIosCheckmarkCircle } from "react-icons/io";
@@ -7,6 +7,15 @@ import { FaCircleXmark } from "react-icons/fa6";
 export default function Profile() {
   const { user } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
+  const [venues, setVenues] = useState([]);
+
+  useEffect(() => {
+    async function loadVenues() {
+      console.log("hello");
+    }
+
+    loadVenues();
+  }, []);
 
   function onEditingHandler() {
     setIsEditing(true);
