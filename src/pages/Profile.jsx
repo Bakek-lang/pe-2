@@ -26,6 +26,12 @@ export default function Profile() {
     setIsEditing(true);
   }
 
+  function handleVenueDelete(deletedVenueId) {
+    setVenues((prevVenues) =>
+      prevVenues.filter((venue) => venue.id !== deletedVenueId)
+    );
+  }
+
   return (
     <div>
       {" "}
@@ -55,9 +61,14 @@ export default function Profile() {
         </button>
       </div>
       {!isEditing ? (
-        <div className="flex flex-col">
+        <div className="flex  flex-wrap  gap-4 p-4 items-center">
           {venues.map((venue, index) => (
-            <VenueCard venue={venue} key={`${venue.id}-${index}`} />
+            <VenueCard
+              venue={venue}
+              key={`${venue.id}-${index}`}
+              showActions={true}
+              onDelete={handleVenueDelete}
+            />
           ))}
         </div>
       ) : (

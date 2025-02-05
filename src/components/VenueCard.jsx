@@ -3,10 +3,32 @@ import { shortenText } from "../js/utils/shortenText";
 import { Link } from "react-router-dom";
 import { renderFeatures } from "../js/utils/features";
 import { shortenTitle } from "../js/utils/shortenTitle";
+import useAuthStore from "../js/store/useAuthStore";
+import { deleteVenue } from "../js/API/deleteVenue";
+import useNotificationStore from "../js/store/useNotificationStore";
 
-export default function VenueCard({ venue }) {
+export default function VenueCard({ venue, showActions = false, onDelete }) {
+  const { addNotification } = useNotificationStore();
+  const { accessToken } = useAuthStore();
+
+  async function handleDelete(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    try {
+      const deletedVenue = await deleteVenue(venue.id, accessToken);
+      console.log("deleted venue: ", deletedVenue);
+      addNotification("Venue deleted successfully!", "success");
+
+      if (onDelete) {
+        onDelete(venue.id);
+      }
+    } catch (error) {
+      addNotification("Failed to delete venue.", "error");
+    }
+  }
+
   return (
-    <Link to={`venue/${venue.id}`}>
+    <Link to={`/venue/${venue.id}`}>
       <div className="rounded-lg shadow-lg max-w-sm m-4 pb-4 flex flex-col">
         <img
           src={venue.media[0].url}
@@ -46,6 +68,19 @@ export default function VenueCard({ venue }) {
           <div className="flex justify-between mt-4">
             {renderFeatures(venue)}
           </div>
+          {showActions && (
+            <div className="mt-4 flex justify-around">
+              <button className="py-2 px-3 rounded-lg text-white bg-blue-500">
+                Update
+              </button>
+              <button
+                className="py-2 px-3 rounded-lg text-white bg-red-500"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </Link>
