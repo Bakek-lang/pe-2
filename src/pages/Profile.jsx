@@ -53,23 +53,29 @@ export default function Profile() {
             <FaCircleXmark color="red" size={30} />
           )}
         </div>
-        <button
-          onClick={onEditingHandler}
-          className="py-2 px-3 bg-blue-500 rounded-lg text-white mb-3"
-        >
-          Update Profile
-        </button>
+        {!isEditing && (
+          <button
+            onClick={onEditingHandler}
+            className="py-2 px-3 bg-blue-500 rounded-lg text-white mb-3"
+          >
+            Update Profile
+          </button>
+        )}
       </div>
       {!isEditing ? (
-        <div className="flex  flex-wrap  gap-4 p-4 items-center">
-          {venues.map((venue, index) => (
-            <VenueCard
-              venue={venue}
-              key={`${venue.id}-${index}`}
-              showActions={true}
-              onDelete={handleVenueDelete}
-            />
-          ))}
+        <div>
+          {" "}
+          <h2 className="text-3xl p-4">Venues:</h2>
+          <div className="flex  flex-wrap  gap-4 p-4 items-center">
+            {venues.map((venue, index) => (
+              <VenueCard
+                venue={venue}
+                key={`${venue.id}-${index}`}
+                showActions={true}
+                onDelete={handleVenueDelete}
+              />
+            ))}
+          </div>
         </div>
       ) : (
         <ProfileEditForm setIsEditing={setIsEditing} />
