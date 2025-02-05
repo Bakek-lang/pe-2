@@ -6,7 +6,7 @@ import { shortenTitle } from "../js/utils/shortenTitle";
 
 export default function VenueCard({ venue }) {
   return (
-    <Link to={`venue/${venue.id}`}>
+    <Link to={`/venue/${venue.id}`}>
       <div className="rounded-lg shadow-lg max-w-sm m-4 pb-4 flex flex-col">
         <img
           src={venue.media[0].url}
