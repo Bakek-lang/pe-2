@@ -57,7 +57,11 @@ export default function Profile() {
       {!isEditing ? (
         <div className="flex  flex-wrap  gap-4 p-4 items-center">
           {venues.map((venue, index) => (
-            <VenueCard venue={venue} key={`${venue.id}-${index}`} />
+            <VenueCard
+              venue={venue}
+              key={`${venue.id}-${index}`}
+              showActions={true}
+            />
           ))}
         </div>
       ) : (
