@@ -7,7 +7,7 @@ import useAuthStore from "../js/store/useAuthStore";
 import { deleteVenue } from "../js/API/deleteVenue";
 import useNotificationStore from "../js/store/useNotificationStore";
 
-export default function VenueCard({ venue, showActions = false }) {
+export default function VenueCard({ venue, showActions = false, onDelete }) {
   const { addNotification } = useNotificationStore();
   const { accessToken } = useAuthStore();
 
@@ -18,6 +18,10 @@ export default function VenueCard({ venue, showActions = false }) {
       const deletedVenue = await deleteVenue(venue.id, accessToken);
       console.log("deleted venue: ", deletedVenue);
       addNotification("Venue deleted successfully!", "success");
+
+      if (onDelete) {
+        onDelete(venue.id);
+      }
     } catch (error) {
       addNotification("Failed to delete venue.", "error");
     }

@@ -26,6 +26,12 @@ export default function Profile() {
     setIsEditing(true);
   }
 
+  function handleVenueDelete(deletedVenueId) {
+    setVenues((prevVenues) =>
+      prevVenues.filter((venue) => venue.id !== deletedVenueId)
+    );
+  }
+
   return (
     <div>
       {" "}
@@ -61,6 +67,7 @@ export default function Profile() {
               venue={venue}
               key={`${venue.id}-${index}`}
               showActions={true}
+              onDelete={handleVenueDelete}
             />
           ))}
         </div>
