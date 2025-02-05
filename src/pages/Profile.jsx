@@ -72,7 +72,7 @@ export default function Profile() {
           ))}
         </div>
       ) : (
-        <ProfileEditForm />
+        <ProfileEditForm setIsEditing={setIsEditing} />
       )}
     </div>
   );
