@@ -28,6 +28,13 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
     }
   }
 
+  function handleUpdate(event) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    navigate(`/update-venue/${venue.id}`);
+  }
+
   return (
     <Link to={`/venue/${venue.id}`}>
       <div className="rounded-lg shadow-lg max-w-sm m-4 pb-4 flex flex-col">
@@ -73,7 +80,7 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
             <div className="mt-4 flex justify-around">
               <button
                 className="py-2 px-3 rounded-lg text-white bg-blue-500"
-                onClick={() => navigate(`/update-venue/${venue.id}`)}
+                onClick={handleUpdate}
               >
                 Update
               </button>
