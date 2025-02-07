@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import Profile from "./pages/Profile";
 import useAuthStore from "./js/store/useAuthStore";
 import CreateVenuePage from "./pages/CreateVenuePage";
+import UpdateVenuePage from "./pages/updateVenuePage";
 
 export default function App() {
   const { user } = useAuthStore();
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/update-venue/:id" element={<UpdateVenuePage />} />
           <Route
             path="/create-venue"
             element={
