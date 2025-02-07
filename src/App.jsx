@@ -28,7 +28,11 @@ export default function App() {
           <Route
             path="/create-venue"
             element={
-              user.data.venueManager ? <CreateVenuePage /> : <Navigate to="/" />
+              user?.data?.venueManager ? (
+                <CreateVenuePage />
+              ) : (
+                <Navigate to="/" />
+              )
             }
           />
           <Route path="*" element={<PageNotFound />} />
