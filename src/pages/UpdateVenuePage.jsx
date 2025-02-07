@@ -1,3 +1,3 @@
-export default function UpdateVenuePage() {
-  return <div>UPDATE VENUE PAGE</div>;
+export default function UpdateVenuePage({ venue }) {
+  return <div>UPDATE VENUE PAGE for {venue.name}</div>;
 }
