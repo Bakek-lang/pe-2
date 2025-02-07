@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import Profile from "./pages/Profile";
 import useAuthStore from "./js/store/useAuthStore";
 import CreateVenuePage from "./pages/CreateVenuePage";
+import ProtectedUpdateVenuePage from "./pages/ProtectedUpdateVenuePage";
 
 export default function App() {
   const { user } = useAuthStore();
@@ -21,9 +22,17 @@ export default function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route
+            path="/update-venue/:id"
+            element={<ProtectedUpdateVenuePage />}
+          />
+          <Route
             path="/create-venue"
             element={
-              user.data.venueManager ? <CreateVenuePage /> : <Navigate to="/" />
+              user?.data?.venueManager ? (
+                <CreateVenuePage />
+              ) : (
+                <Navigate to="/" />
+              )
             }
           />
           <Route path="*" element={<PageNotFound />} />

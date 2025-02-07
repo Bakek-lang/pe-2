@@ -1,6 +1,6 @@
 import { FaStar, FaUsers, FaMoneyBillAlt } from "react-icons/fa";
 import { shortenText } from "../js/utils/shortenText";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { renderFeatures } from "../js/utils/features";
 import { shortenTitle } from "../js/utils/shortenTitle";
 import useAuthStore from "../js/store/useAuthStore";
@@ -10,6 +10,7 @@ import useNotificationStore from "../js/store/useNotificationStore";
 export default function VenueCard({ venue, showActions = false, onDelete }) {
   const { addNotification } = useNotificationStore();
   const { accessToken } = useAuthStore();
+  const navigate = useNavigate();
 
   async function handleDelete(event) {
     event.stopPropagation();
@@ -25,6 +26,13 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
     } catch (error) {
       addNotification("Failed to delete venue.", "error");
     }
+  }
+
+  function handleUpdate(event) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    navigate(`/update-venue/${venue.id}`);
   }
 
   return (
@@ -70,7 +78,10 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
           </div>
           {showActions && (
             <div className="mt-4 flex justify-around">
-              <button className="py-2 px-3 rounded-lg text-white bg-blue-500">
+              <button
+                className="py-2 px-3 rounded-lg text-white bg-blue-500"
+                onClick={handleUpdate}
+              >
                 Update
               </button>
               <button

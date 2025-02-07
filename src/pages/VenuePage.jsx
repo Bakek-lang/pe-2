@@ -45,7 +45,7 @@ export default function VenuePage() {
         <img
           src={venue.media[0].url}
           alt={venue.media[0].alt}
-          className="w-full h-full object-cover rounded-t-lg"
+          className="w-1/2 h-full object-cover rounded-t-lg"
           onError={(event) => {
             event.target.onerror = null;
             event.target.src = "https://placehold.co/600x400";

@@ -3,7 +3,7 @@ import useAuthStore from "../js/store/useAuthStore";
 import { updateUser } from "../js/API/updateUser";
 import useNotificationStore from "../js/store/useNotificationStore";
 
-export default function ProfileEditForm() {
+export default function ProfileEditForm({ setIsEditing }) {
   const { user, updateUserDetails, accessToken } = useAuthStore();
   const [bio, setBio] = useState(user.data.bio);
   const [avatar, setAvatar] = useState(user.data.avatar.url);
@@ -31,6 +31,7 @@ export default function ProfileEditForm() {
       console.log("Update user is successful!", updatedUser);
       updateUserDetails(updatedUser);
       addNotification("Profile updated successfully!", "success");
+      setIsEditing(false);
     } catch (error) {
       console.log("Updating user failed", error.message);
       addNotification("Failed to update profile.", "error");
