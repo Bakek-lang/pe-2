@@ -2,10 +2,12 @@ import { useState } from "react";
 import { createVenue } from "../js/API/createVenue";
 import useAuthStore from "../js/store/useAuthStore";
 import useNotificationStore from "../js/store/useNotificationStore";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateVenuePage() {
   const { accessToken } = useAuthStore();
   const { addNotification } = useNotificationStore();
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -39,6 +41,7 @@ export default function CreateVenuePage() {
       const createdVenue = await createVenue(venueData, accessToken);
       console.log("Created Venue", createdVenue);
       addNotification("Created Venue successfully!", "success");
+      navigate(`/venue/${createdVenue.data.id}`);
     } catch (error) {
       console.log("Creating venue failed", error.message);
       addNotification("Failed to create a venue.", "error");
