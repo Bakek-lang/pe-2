@@ -45,12 +45,14 @@ export default function Home() {
         ))}
       </div>
 
-      <button
-        onClick={handleViewMore}
-        className="px-3 py-2 bg-blue-500 rounded-lg text-white"
-      >
-        View More
-      </button>
+      <div className="flex justify-center">
+        <button
+          onClick={handleViewMore}
+          className="px-3 py-2 bg-blue-500 rounded-lg text-white"
+        >
+          View More
+        </button>
+      </div>
     </div>
   );
 }
