@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchVenueById } from "../js/utils/fetchVenue";
 import { FaStar, FaUsers, FaMoneyBillAlt } from "react-icons/fa";
 import { renderFeatures } from "../js/utils/features";
+import { fetchVenueById } from "../js/API/fetchVenue";
 
 export default function VenuePage() {
   const [venue, setVenue] = useState(null);

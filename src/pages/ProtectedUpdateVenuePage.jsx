@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import UpdateVenuePage from "./updateVenuePage";
 import useAuthStore from "../js/store/useAuthStore";
 import { useEffect, useState } from "react";
-import { fetchVenueById } from "../js/utils/fetchVenue";
+import { fetchVenueById } from "../js/API/fetchVenue";
 
 export default function ProtectedUpdateVenuePage() {
   const { id } = useParams();

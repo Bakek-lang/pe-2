@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import VenueCard from "../components/VenueCard";
-import { fetchVenues } from "../js/utils/api";
+import { fetchVenues } from "../js/API/api";
 import SearchBar from "../components/SearchBar";
 import { isValidUrl } from "../js/utils/isValidUrl";
 
