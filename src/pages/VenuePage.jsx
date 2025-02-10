@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { FaStar, FaUsers, FaMoneyBillAlt } from "react-icons/fa";
 import { renderFeatures } from "../js/utils/features";
 import { fetchVenueById } from "../js/API/fetchVenue";
+import BookingCalendar from "../components/BookingCalendar";
 
 export default function VenuePage() {
   const [venue, setVenue] = useState(null);
@@ -90,6 +91,9 @@ export default function VenuePage() {
       </div>
       <div>
         <div className="flex justify-between mt-4">{renderFeatures(venue)}</div>
+      </div>
+      <div>
+        <BookingCalendar bookings={venue.bookings || []} />
       </div>
     </div>
   );
