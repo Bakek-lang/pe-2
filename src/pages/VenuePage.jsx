@@ -93,7 +93,11 @@ export default function VenuePage() {
         <div className="flex justify-between mt-4">{renderFeatures(venue)}</div>
       </div>
       <div>
-        <BookingCalendar bookings={venue.bookings || []} />
+        <BookingCalendar
+          bookings={venue.bookings || []}
+          venueId={venue.id}
+          maxGuests={venue.maxGuests}
+        />
       </div>
     </div>
   );
