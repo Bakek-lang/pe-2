@@ -30,9 +30,18 @@ export default function VenueBookingsPage() {
 
   async function handleDeleteBooking(bookingId) {
     try {
-      const deletedBooking = await deleteBooking(bookingId, accessToken);
-      console.log("deleted booking: ", deletedBooking);
+      await deleteBooking(bookingId, accessToken);
       addNotification("Booking deleted successfully!", "success");
+
+      setVenue((prevVenue) => {
+        if (!prevVenue) return prevVenue;
+        return {
+          ...prevVenue,
+          bookings: prevVenue.bookings.filter(
+            (booking) => booking.id !== bookingId
+          ),
+        };
+      });
     } catch (error) {
       addNotification("Failed to delete booking.", "error");
     }
@@ -48,7 +57,7 @@ export default function VenueBookingsPage() {
       {!venue.bookings || venue.bookings.length === 0 ? (
         <p>No bookings found for this venue.</p>
       ) : (
-        <div className="flex">
+        <div className="flex flex-wrap gap-4">
           {venue.bookings.map((booking) => (
             <div
               key={booking.id}
