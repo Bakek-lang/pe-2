@@ -23,11 +23,24 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
 
   function tileClassName({ date, view }) {
     if ((view = "month")) {
-      return isDateBooked(date)
-        ? "bg-gray-400 text-black cursor-not-allowed "
-        : "hover:bg-green-600 hover:text-white rounded-full cursor-pointer";
-    }
+      if (isDateBooked(date)) {
+        return "bg-red-500 text-white rounded-full cursor-not-allowed";
+      }
 
+      if (selectedRange && selectedRange.length === 2) {
+        const [start, end] = selectedRange;
+        if (
+          date.toDateString() === start.toDateString() ||
+          date.toDateString() === end.toDateString()
+        ) {
+          return "bg-blue-700 text-white rounded-full cursor-pointer";
+        } else if (date > start && date < end) {
+          return "bg-blue-300 text-white cursor-pointer";
+        }
+      }
+
+      return "hover:bg-green-600 hover:text-white rounded-full cursor-pointer";
+    }
     return "";
   }
 
@@ -86,6 +99,15 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
           onChange={(event) => setGuests(Number(event.target.value))}
           className="border border-gray-300 rounded px-2 py-1"
         />
+      </div>
+      <div className="mt-4 flex justify-center">
+        <button
+          onClick={handleBooking}
+          disabled={isSubmitting}
+          className="bg-blue-500 py-2 px-4 rounded-lg text-white"
+        >
+          {isSubmitting ? "Booking..." : "Book Now"}
+        </button>
       </div>
     </div>
   );
