@@ -45,7 +45,7 @@ export default function ProfileEditForm({ setIsEditing }) {
         size={30}
         className="absolute right-0 cursor-pointer"
         onClick={() => setIsEditing(false)}
-      />{" "}
+      />
       <form onSubmit={handleSubmit} className="flex flex-col w-1/2  mt-4">
         <input
           type="text"
