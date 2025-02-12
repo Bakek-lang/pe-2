@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchVenueById } from "../js/API/fetchVenue";
+import { deleteBooking } from "../js/API/deleteBooking";
+import useNotificationStore from "../js/store/useNotificationStore";
+import useAuthStore from "../js/store/useAuthStore";
 
 export default function VenueBookingsPage() {
+  const { addNotification } = useNotificationStore();
+  const { accessToken } = useAuthStore();
   const { venueId } = useParams();
   const [venue, setVenue] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +27,16 @@ export default function VenueBookingsPage() {
 
     loadVenue();
   }, [venueId]);
+
+  async function handleDeleteBooking(bookingId) {
+    try {
+      const deletedBooking = await deleteBooking(bookingId, accessToken);
+      console.log("deleted booking: ", deletedBooking);
+      addNotification("Booking deleted successfully!", "success");
+    } catch (error) {
+      addNotification("Failed to delete booking.", "error");
+    }
+  }
 
   if (isLoading) return <div className="p-4">Loading...</div>;
   if (error) return <div className="p-4 text-red-500">{error}</div>;
@@ -57,9 +72,14 @@ export default function VenueBookingsPage() {
                 <span className="font-semibold">Customer:</span>{" "}
                 {booking.customer.email}
               </p>
-              <p>
-                <span className="font-semibold">Guests:</span> {booking.guests}
-              </p>
+              <div className="flex justify-end">
+                <button
+                  className="py-2 px-3 rounded-lg text-white bg-red-500  "
+                  onClick={() => handleDeleteBooking(booking.id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
