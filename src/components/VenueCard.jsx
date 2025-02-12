@@ -35,6 +35,13 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
     navigate(`/update-venue/${venue.id}`);
   }
 
+  function handleViewBooking(event) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    navigate(`/venue/${venue.id}/bookings`);
+  }
+
   return (
     <Link to={`/venue/${venue.id}`}>
       <div className="rounded-lg shadow-lg m-4 pb-4 flex flex-col max-w-sm h-lg w-96 ">
@@ -89,6 +96,12 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
                 onClick={handleDelete}
               >
                 Delete
+              </button>
+              <button
+                className="py-2 px-3 rounded-lg text-white bg-green-500"
+                onClick={handleViewBooking}
+              >
+                View Bookings
               </button>
             </div>
           )}
