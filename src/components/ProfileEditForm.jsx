@@ -2,6 +2,7 @@ import { useState } from "react";
 import useAuthStore from "../js/store/useAuthStore";
 import { updateUser } from "../js/API/updateUser";
 import useNotificationStore from "../js/store/useNotificationStore";
+import { FaXmark } from "react-icons/fa6";
 
 export default function ProfileEditForm({ setIsEditing }) {
   const { user, updateUserDetails, accessToken } = useAuthStore();
@@ -40,7 +41,11 @@ export default function ProfileEditForm({ setIsEditing }) {
 
   return (
     <div className="flex justify-center w-full">
-      {" "}
+      <FaXmark
+        size={30}
+        className="absolute right-0 cursor-pointer"
+        onClick={() => setIsEditing(false)}
+      />{" "}
       <form onSubmit={handleSubmit} className="flex flex-col w-1/2  mt-4">
         <input
           type="text"

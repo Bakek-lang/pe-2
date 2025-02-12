@@ -33,9 +33,9 @@ export default function Profile() {
   }
 
   return (
-    <div>
+    <div className="flex ">
       {" "}
-      <div className="border border-black flex justify-center items-center flex-col rounded-lg">
+      <div className="border border-black flex items-center flex-col rounded-lg w-1/3">
         <div className="flex justify-center mt-6 flex-col items-center">
           <img
             src={user.data.avatar.url}
