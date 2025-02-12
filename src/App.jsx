@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import useAuthStore from "./js/store/useAuthStore";
 import CreateVenuePage from "./pages/CreateVenuePage";
 import ProtectedUpdateVenuePage from "./pages/ProtectedUpdateVenuePage";
+import VenueBookingsPage from "./pages/VenueBookingsPage";
 
 export default function App() {
   const { user } = useAuthStore();
@@ -34,6 +35,10 @@ export default function App() {
                 <Navigate to="/" />
               )
             }
+          />
+          <Route
+            path="/venue/:venueId/bookings"
+            element={<VenueBookingsPage />}
           />
           <Route path="*" element={<PageNotFound />} />
         </Route>

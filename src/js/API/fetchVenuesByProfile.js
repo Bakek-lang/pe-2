@@ -15,7 +15,8 @@ export async function fetchVenuesByProfile(user, accessToken) {
         API_PROFILES +
         "/" +
         user.data.name +
-        API_VENUES,
+        API_VENUES +
+        `?_bookings=true`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
