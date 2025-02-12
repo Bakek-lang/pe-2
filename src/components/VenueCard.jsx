@@ -37,11 +37,11 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
 
   return (
     <Link to={`/venue/${venue.id}`}>
-      <div className="rounded-lg shadow-lg max-w-sm m-4 pb-4 flex flex-col">
+      <div className="rounded-lg shadow-lg m-4 pb-4 flex flex-col max-w-sm h-lg w-96 ">
         <img
           src={venue.media[0].url}
           alt="/"
-          className="w-full h-full object-cover rounded-t-lg"
+          className="w-full h-60 object-cover rounded-t-lg"
           onError={(event) => {
             event.target.onerror = null;
             event.target.src = "https://placehold.co/600x400";

@@ -2,10 +2,12 @@ import { useState } from "react";
 import useAuthStore from "../js/store/useAuthStore";
 import useNotificationStore from "../js/store/useNotificationStore";
 import { updateVenue } from "../js/API/updateVenue";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateVenuePage({ venue }) {
   const { accessToken } = useAuthStore();
   const { addNotification } = useNotificationStore();
+  const navigate = useNavigate();
 
   const [name, setName] = useState(venue.name);
   const [description, setDescription] = useState(venue.description);
@@ -35,6 +37,7 @@ export default function UpdateVenuePage({ venue }) {
       const updatedVenue = await updateVenue(venueData, accessToken, venue.id);
       console.log("Updated Venue: ", updatedVenue);
       addNotification("Updated Venue successfully!", "success");
+      navigate(`/venue/${updatedVenue.data.id}`);
     } catch (error) {
       console.log("Updating venue failed:", error.message);
       addNotification("Failed to update venue.", "error");

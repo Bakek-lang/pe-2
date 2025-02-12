@@ -7,3 +7,4 @@ export const API_PROFILES = "/profiles";
 export const API_HOLIDAZE = "/holidaze";
 export const API_VENUES = "/venues";
 export const API_SEARCH = "/search";
+export const API_BOOKINGS = "/bookings";
