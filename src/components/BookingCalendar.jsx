@@ -71,7 +71,7 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
   }
 
   return (
-    <div className="max-w-sm mx-auto p-4 border border-gray-300 rounded-md">
+    <div className="p-4 border border-gray-300 rounded-md">
       <h2 className="text-xl font-bold mb-2 text-center">Booking Calendar</h2>
       <Calendar
         selectRange={true}
