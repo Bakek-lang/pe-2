@@ -7,12 +7,14 @@ import { fetchVenuesByProfile } from "../js/API/fetchVenuesByProfile";
 import VenueCard from "../components/VenueCard";
 import { fetchBookingsByProfile } from "../js/API/fetchBookingsByProfile";
 import BookingCard from "../components/bookingCard";
+import VenueCardSkeleton from "../skeleton/VenueCardSkeleton";
 
 export default function Profile() {
   const { user, accessToken } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
   const [venues, setVenues] = useState([]);
   const [bookings, setBookings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!user) return;
@@ -21,6 +23,7 @@ export default function Profile() {
         const profileVenues = await fetchVenuesByProfile(user, accessToken);
         console.log("This is profileVenues:", profileVenues);
         setVenues(profileVenues);
+        setIsLoading(false);
       }
 
       loadVenues();
@@ -98,7 +101,11 @@ export default function Profile() {
                 <div>
                   <h2 className="text-3xl mb-4">My Venues:</h2>
                   <div className="flex flex-wrap gap-4 items-center">
-                    {venues.length > 0 ? (
+                    {isLoading ? (
+                      Array.from({ length: 6 }).map((_, index) => (
+                        <VenueCardSkeleton key={index} />
+                      ))
+                    ) : venues.length > 0 ? (
                       venues.map((venue, index) => (
                         <VenueCard
                           venue={venue}

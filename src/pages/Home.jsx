@@ -44,12 +44,10 @@ export default function Home() {
       <SearchBar />
       <div className="flex flex-wrap justify-center gap-4 p-4 items-center">
         {isLoading
-          ? // Render an array of skeleton loaders while data is loading
-            Array.from({ length: 6 }).map((_, index) => (
+          ? Array.from({ length: 6 }).map((_, index) => (
               <VenueCardSkeleton key={index} />
             ))
-          : // Render actual venue cards once data has loaded
-            venues.map((venue, index) => (
+          : venues.map((venue, index) => (
               <VenueCard venue={venue} key={`${venue.id}-${index}`} />
             ))}
       </div>
