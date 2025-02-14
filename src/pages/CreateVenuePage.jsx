@@ -14,7 +14,6 @@ export default function CreateVenuePage() {
   const [imageUrl, setImageUrl] = useState("");
   const [price, setPrice] = useState("");
   const [maxGuests, setMaxGuests] = useState("");
-  const [rating, setRating] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -32,7 +31,6 @@ export default function CreateVenuePage() {
       }),
       price: Number(price),
       maxGuests: Number(maxGuests),
-      rating: parseFloat(rating),
     };
 
     console.log("VENUE DATA: ", venueData);
@@ -94,17 +92,6 @@ export default function CreateVenuePage() {
           onChange={(e) => setMaxGuests(e.target.value)}
           required
           min="1"
-          className="p-2 border rounded"
-        />
-
-        <input
-          type="number"
-          placeholder="Rating (1-5)"
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
-          required
-          min="0"
-          max="5"
           className="p-2 border rounded"
         />
 
