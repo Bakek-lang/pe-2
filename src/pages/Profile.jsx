@@ -5,22 +5,41 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 import { FaCircleXmark } from "react-icons/fa6";
 import { fetchVenuesByProfile } from "../js/API/fetchVenuesByProfile";
 import VenueCard from "../components/VenueCard";
+import { fetchBookingsByProfile } from "../js/API/fetchBookingsByProfile";
+import BookingCard from "../components/bookingCard";
 
 export default function Profile() {
   const { user, accessToken } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
   const [venues, setVenues] = useState([]);
-  const [activeTab, setActiveTab] = useState("venues");
+  const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
     if (!user) return;
-    async function loadVenues() {
-      const profileVenues = await fetchVenuesByProfile(user, accessToken);
-      console.log("This is profileVenues:", profileVenues);
-      setVenues(profileVenues);
-    }
+    if (user.data.venueManager) {
+      async function loadVenues() {
+        const profileVenues = await fetchVenuesByProfile(user, accessToken);
+        console.log("This is profileVenues:", profileVenues);
+        setVenues(profileVenues);
+      }
 
-    loadVenues();
+      loadVenues();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+    if (!user.data.venueManager) {
+      async function loadBookings() {
+        const profileBookings = await fetchBookingsByProfile(user, accessToken);
+        console.log("This is profileBookings: ", profileBookings);
+        setBookings(profileBookings);
+
+        console.log("bookings: ", bookings);
+      }
+
+      loadBookings();
+    }
   }, [user]);
 
   function onEditingHandler() {
@@ -30,6 +49,12 @@ export default function Profile() {
   function handleVenueDelete(deletedVenueId) {
     setVenues((prevVenues) =>
       prevVenues.filter((venue) => venue.id !== deletedVenueId)
+    );
+  }
+
+  function handleBookingDelete(deletedBookingId) {
+    setBookings((prevBookings) =>
+      prevBookings.filter((booking) => booking.id !== deletedBookingId)
     );
   }
 
@@ -68,31 +93,8 @@ export default function Profile() {
       <div className="w-full">
         {!isEditing ? (
           <div className="bg-white shadow rounded-lg">
-            <div className="flex border-b border-gray-300">
-              <button
-                onClick={() => setActiveTab("venues")}
-                className={`px-6 py-3 focus:outline-none ${
-                  activeTab === "venues"
-                    ? "border-b-2 border-blue-500 text-blue-500 font-semibold"
-                    : "text-gray-500"
-                }`}
-              >
-                My Venues
-              </button>
-              <button
-                onClick={() => setActiveTab("bookings")}
-                className={`px-6 py-3 focus:outline-none ${
-                  activeTab === "bookings"
-                    ? "border-b-2 border-blue-500 text-blue-500 font-semibold"
-                    : "text-gray-500"
-                }`}
-              >
-                Upcoming Bookings
-              </button>
-            </div>
-
             <div className="p-6">
-              {activeTab === "venues" && (
+              {user.data.venueManager ? (
                 <div>
                   <h2 className="text-3xl mb-4">My Venues:</h2>
                   <div className="flex flex-wrap gap-4 items-center">
@@ -110,11 +112,22 @@ export default function Profile() {
                     )}
                   </div>
                 </div>
-              )}
-              {activeTab === "bookings" && (
+              ) : (
                 <div>
                   <h2 className="text-3xl mb-4">Upcoming Bookings:</h2>
-                  <p>No upcoming bookings.</p>
+                  <div className="flex flex-wrap gap-4 items-center">
+                    {bookings.length > 0 ? (
+                      bookings.map((booking, index) => (
+                        <BookingCard
+                          booking={booking}
+                          key={index}
+                          onDelete={handleBookingDelete}
+                        />
+                      ))
+                    ) : (
+                      <p>No upcoming bookings.</p>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
