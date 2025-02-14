@@ -10,7 +10,6 @@ export default function Profile() {
   const { user, accessToken } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
   const [venues, setVenues] = useState([]);
-  const [activeTab, setActiveTab] = useState("venues");
 
   useEffect(() => {
     if (!user) return;
@@ -68,31 +67,8 @@ export default function Profile() {
       <div className="w-full">
         {!isEditing ? (
           <div className="bg-white shadow rounded-lg">
-            <div className="flex border-b border-gray-300">
-              <button
-                onClick={() => setActiveTab("venues")}
-                className={`px-6 py-3 focus:outline-none ${
-                  activeTab === "venues"
-                    ? "border-b-2 border-blue-500 text-blue-500 font-semibold"
-                    : "text-gray-500"
-                }`}
-              >
-                My Venues
-              </button>
-              <button
-                onClick={() => setActiveTab("bookings")}
-                className={`px-6 py-3 focus:outline-none ${
-                  activeTab === "bookings"
-                    ? "border-b-2 border-blue-500 text-blue-500 font-semibold"
-                    : "text-gray-500"
-                }`}
-              >
-                Upcoming Bookings
-              </button>
-            </div>
-
             <div className="p-6">
-              {activeTab === "venues" && (
+              {user.data.venueManager ? (
                 <div>
                   <h2 className="text-3xl mb-4">My Venues:</h2>
                   <div className="flex flex-wrap gap-4 items-center">
@@ -110,8 +86,7 @@ export default function Profile() {
                     )}
                   </div>
                 </div>
-              )}
-              {activeTab === "bookings" && (
+              ) : (
                 <div>
                   <h2 className="text-3xl mb-4">Upcoming Bookings:</h2>
                   <p>No upcoming bookings.</p>
