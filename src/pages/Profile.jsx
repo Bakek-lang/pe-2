@@ -107,7 +107,7 @@ export default function Profile() {
 
       <div className="w-full">
         {!isEditing ? (
-          <div className="bg-white shadow rounded-lg">
+          <div className="border border-gray-300 shadow-md rounded-lg">
             <div className="p-6">
               {user.data.venueManager ? (
                 <div>
