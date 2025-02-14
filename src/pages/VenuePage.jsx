@@ -11,6 +11,22 @@ export default function VenuePage() {
   const [isError, setIsError] = useState(false);
   let { id } = useParams();
 
+  const [mainImage, setMainImage] = useState(null);
+
+  useEffect(() => {
+    if (venue && venue.media && venue.media.length > 0) {
+      setMainImage({
+        url: venue.media[0].url,
+        alt: venue.media[0].alt,
+      });
+    }
+  }, [venue]);
+
+  function handleImageError(event) {
+    event.target.onerror = null;
+    event.target.src = "https://placehold.co/600x400";
+  }
+
   useEffect(() => {
     async function loadVenue() {
       try {
@@ -43,15 +59,32 @@ export default function VenuePage() {
   return (
     <div className="flex flex-col justify-center p-4">
       <div className="media-gallery">
-        <img
-          src={venue.media[0].url}
-          alt={venue.media[0].alt}
-          className="w-1/2 h-full object-cover rounded-t-lg"
-          onError={(event) => {
-            event.target.onerror = null;
-            event.target.src = "https://placehold.co/600x400";
-          }}
-        />
+        <div className="h-96 w-1/2 overflow-hidden">
+          <img
+            src={mainImage.url}
+            alt={mainImage.alt}
+            className="w-full h-full object-cover rounded-t-lg"
+            onError={handleImageError}
+          />
+        </div>
+        <div className="flex gap-2 mt-4 overflow-x-auto">
+          {venue.media.map((media, index) => (
+            <img
+              key={index}
+              src={media.url}
+              alt={media.alt}
+              onClick={() => setMainImage({ url: media.url, alt: media.alt })}
+              onError={handleImageError}
+              className={`h-20 w-15 object-cover rounded cursor-pointer 
+              ${
+                mainImage && media.url === mainImage.url
+                  ? "border-4 border-blue-400"
+                  : "border border-gray-300"
+              } 
+              `}
+            />
+          ))}
+        </div>
       </div>
       <div className="flex justify-between items-center">
         <div className="mt-2 flex items-center gap-3">
