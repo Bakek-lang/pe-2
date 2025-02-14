@@ -5,11 +5,14 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 import { FaCircleXmark } from "react-icons/fa6";
 import { fetchVenuesByProfile } from "../js/API/fetchVenuesByProfile";
 import VenueCard from "../components/VenueCard";
+import { fetchBookingsByProfile } from "../js/API/fetchBookingsByProfile";
+import BookingCard from "../components/bookingCard";
 
 export default function Profile() {
   const { user, accessToken } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
   const [venues, setVenues] = useState([]);
+  const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
     if (!user) return;
@@ -24,6 +27,21 @@ export default function Profile() {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (!user) return;
+    if (!user.data.venueManager) {
+      async function loadBookings() {
+        const profileBookings = await fetchBookingsByProfile(user, accessToken);
+        console.log("This is profileBookings: ", profileBookings);
+        setBookings(profileBookings);
+
+        console.log("bookings: ", bookings);
+      }
+
+      loadBookings();
+    }
+  }, [user]);
+
   function onEditingHandler() {
     setIsEditing(true);
   }
@@ -31,6 +49,12 @@ export default function Profile() {
   function handleVenueDelete(deletedVenueId) {
     setVenues((prevVenues) =>
       prevVenues.filter((venue) => venue.id !== deletedVenueId)
+    );
+  }
+
+  function handleBookingDelete(deletedBookingId) {
+    setBookings((prevBookings) =>
+      prevBookings.filter((booking) => booking.id !== deletedBookingId)
     );
   }
 
@@ -91,7 +115,19 @@ export default function Profile() {
               ) : (
                 <div>
                   <h2 className="text-3xl mb-4">Upcoming Bookings:</h2>
-                  <p>No upcoming bookings.</p>
+                  <div className="flex flex-wrap gap-4 items-center">
+                    {bookings.length > 0 ? (
+                      bookings.map((booking, index) => (
+                        <BookingCard
+                          booking={booking}
+                          key={index}
+                          onDelete={handleBookingDelete}
+                        />
+                      ))
+                    ) : (
+                      <p>No upcoming bookings.</p>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
