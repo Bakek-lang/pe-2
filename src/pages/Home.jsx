@@ -3,10 +3,12 @@ import VenueCard from "../components/VenueCard";
 import { fetchVenues } from "../js/API/api";
 import SearchBar from "../components/SearchBar";
 import { isValidUrl } from "../js/utils/isValidUrl";
+import VenueCardSkeleton from "../skeleton/VenueCardSkeleton";
 
 export default function Home() {
   const [venues, setVenues] = useState([]);
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadVenues() {
@@ -28,6 +30,7 @@ export default function Home() {
         );
         return [...prev, ...filteredNewVenues];
       });
+      setIsLoading(false);
     }
     loadVenues();
   }, [page]);
@@ -40,9 +43,15 @@ export default function Home() {
     <div>
       <SearchBar />
       <div className="flex flex-wrap justify-center gap-4 p-4 items-center">
-        {venues.map((venue, index) => (
-          <VenueCard venue={venue} key={`${venue.id}-${index}`} />
-        ))}
+        {isLoading
+          ? // Render an array of skeleton loaders while data is loading
+            Array.from({ length: 6 }).map((_, index) => (
+              <VenueCardSkeleton key={index} />
+            ))
+          : // Render actual venue cards once data has loaded
+            venues.map((venue, index) => (
+              <VenueCard venue={venue} key={`${venue.id}-${index}`} />
+            ))}
       </div>
 
       <div className="flex justify-center">
