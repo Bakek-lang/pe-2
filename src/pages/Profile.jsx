@@ -13,13 +13,15 @@ export default function Profile() {
 
   useEffect(() => {
     if (!user) return;
-    async function loadVenues() {
-      const profileVenues = await fetchVenuesByProfile(user, accessToken);
-      console.log("This is profileVenues:", profileVenues);
-      setVenues(profileVenues);
-    }
+    if (user.data.venueManager) {
+      async function loadVenues() {
+        const profileVenues = await fetchVenuesByProfile(user, accessToken);
+        console.log("This is profileVenues:", profileVenues);
+        setVenues(profileVenues);
+      }
 
-    loadVenues();
+      loadVenues();
+    }
   }, [user]);
 
   function onEditingHandler() {
