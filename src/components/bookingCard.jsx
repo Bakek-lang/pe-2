@@ -9,6 +9,9 @@ export default function BookingCard({ booking, onDelete }) {
   const { addNotification } = useNotificationStore();
   const { accessToken } = useAuthStore();
 
+  const formattedStartDate = new Date(booking.dateFrom).toLocaleDateString();
+  const formattedEndDate = new Date(booking.dateTo).toLocaleDateString();
+
   async function handleDelete(event) {
     event.stopPropagation();
     event.preventDefault();
@@ -47,15 +50,23 @@ export default function BookingCard({ booking, onDelete }) {
               <p className="ml-0.5">{booking.venue.rating}</p>
             </div>
           </div>
-          <div>
-            <span>{new Date(booking.dateFrom).toLocaleDateString()}</span>{" "}
-            <span>to</span>{" "}
-            <span>{new Date(booking.dateTo).toLocaleDateString()}</span>
+          <div className="flex flex-col mb-4">
+            <span>
+              Check-in:{" "}
+              <span className="font-semibold">{formattedStartDate}</span>
+            </span>
+            <span>
+              Check-out:{" "}
+              <span className="font-semibold">{formattedEndDate}</span>
+            </span>
+            <span>
+              Guests: <span className="font-semibold">{booking.guests}</span>
+            </span>
           </div>
-          <div>
+          <div className="flex justify-end">
             <button
               onClick={handleDelete}
-              className="py-2 px-3 bg-red-500 text-white"
+              className="py-2 px-3 bg-red-500 text-white rounded-lg"
             >
               DELETE
             </button>
