@@ -6,11 +6,13 @@ import { shortenTitle } from "../js/utils/shortenTitle";
 import useAuthStore from "../js/store/useAuthStore";
 import { deleteVenue } from "../js/API/deleteVenue";
 import useNotificationStore from "../js/store/useNotificationStore";
+import { useState } from "react";
 
 export default function VenueCard({ venue, showActions = false, onDelete }) {
   const { addNotification } = useNotificationStore();
   const { accessToken } = useAuthStore();
   const navigate = useNavigate();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   async function handleDelete(event) {
     event.stopPropagation();
@@ -46,6 +48,9 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
     <Link to={`/venue/${venue.id}`}>
       <div className="rounded-lg shadow-lg mx-4 mt-4 flex flex-col max-w-sm h-full w-80 sm:w-96 justify-around ">
         <div className="w-full h-60 overflow-hidden">
+          {!imageLoaded && (
+            <div className="w-full h-60 bg-gray-300 rounded-t-lg" />
+          )}
           <img
             src={venue.media[0].url}
             alt="/"
@@ -54,6 +59,7 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
               event.target.onerror = null;
               event.target.src = "https://placehold.co/600x400";
             }}
+            onLoad={() => setImageLoaded(true)}
           />
         </div>
         <div className="p-2 flex flex-col justify-around  ">
