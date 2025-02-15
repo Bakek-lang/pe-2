@@ -55,7 +55,7 @@ export default function Home() {
       <div className="flex justify-center">
         <button
           onClick={handleViewMore}
-          className="px-3 py-2 bg-blue-500 rounded-lg text-white"
+          className="px-3 py-2 bg-blue-500 rounded-lg text-white mb-4"
         >
           View More
         </button>
