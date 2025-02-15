@@ -44,7 +44,7 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
 
   return (
     <Link to={`/venue/${venue.id}`}>
-      <div className="rounded-lg shadow-lg m-4 pb-4 flex flex-col max-w-sm h-full w-96 ">
+      <div className="rounded-lg shadow-lg m-4 flex flex-col max-w-sm h-full w-96  ">
         <img
           src={venue.media[0].url}
           alt="/"
@@ -54,7 +54,7 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
             event.target.src = "https://placehold.co/600x400";
           }}
         />
-        <div className="p-2">
+        <div className="p-2 flex flex-col justify-around h-full">
           <p className="text-gray-500">
             {venue.location?.country
               ? venue.location.city
@@ -80,9 +80,19 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
             <FaMoneyBillAlt className="text-2xl" />
             <p className="ml-1">{venue.price} NOK per night</p>
           </div>
-          <div className="flex justify-between mt-4">
-            {renderFeatures(venue)}
-          </div>
+          {venue.meta.breakfast ||
+          venue.meta.parking ||
+          venue.meta.pets ||
+          venue.meta.wifi ? (
+            <div className="flex justify-between mt-6 ">
+              {renderFeatures(venue)}
+            </div>
+          ) : (
+            <div className="flex justify-center items-center mt-4 h-16 bg-gray-100 rounded">
+              <p className="text-gray-500">Discover more...</p>
+            </div>
+          )}
+
           {showActions && (
             <div className="mt-4 flex justify-around">
               <button

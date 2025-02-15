@@ -42,7 +42,7 @@ export default function Home() {
   return (
     <div>
       <SearchBar />
-      <div className="flex flex-wrap justify-center p-4  items-stretch gap-y-8 ">
+      <div className="flex flex-wrap justify-center   items-stretch gap-y-8 ">
         {isLoading
           ? Array.from({ length: 6 }).map((_, index) => (
               <VenueCardSkeleton key={index} />
@@ -52,7 +52,7 @@ export default function Home() {
             ))}
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-12">
         <button
           onClick={handleViewMore}
           className="px-3 py-2 bg-blue-500 rounded-lg text-white mb-4"
