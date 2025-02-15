@@ -44,17 +44,19 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
 
   return (
     <Link to={`/venue/${venue.id}`}>
-      <div className="rounded-lg shadow-lg m-4 flex flex-col max-w-sm h-full w-80 sm:w-96  ">
-        <img
-          src={venue.media[0].url}
-          alt="/"
-          className="w-full h-60 object-cover rounded-t-lg"
-          onError={(event) => {
-            event.target.onerror = null;
-            event.target.src = "https://placehold.co/600x400";
-          }}
-        />
-        <div className="p-2 flex flex-col justify-around h-full">
+      <div className="rounded-lg shadow-lg mx-4 mt-4 flex flex-col max-w-sm h-full w-80 sm:w-96 justify-around ">
+        <div className="w-full h-60 overflow-hidden">
+          <img
+            src={venue.media[0].url}
+            alt="/"
+            className="block w-full h-full object-cover rounded-t-lg"
+            onError={(event) => {
+              event.target.onerror = null;
+              event.target.src = "https://placehold.co/600x400";
+            }}
+          />
+        </div>
+        <div className="p-2 flex flex-col justify-around  ">
           <p className="text-gray-500">
             {venue.location?.country
               ? venue.location.city
@@ -82,18 +84,20 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
             <FaMoneyBillAlt className="text-2xl" />
             <p className="ml-1">{venue.price} NOK per night</p>
           </div>
-          {venue.meta.breakfast ||
-          venue.meta.parking ||
-          venue.meta.pets ||
-          venue.meta.wifi ? (
-            <div className="flex justify-between mt-6 ">
-              {renderFeatures(venue)}
-            </div>
-          ) : (
-            <div className="flex justify-center items-center mt-4 h-16 bg-gray-100 rounded">
-              <p className="text-gray-500">Discover more...</p>
-            </div>
-          )}
+          {!showActions ? (
+            venue.meta.breakfast ||
+            venue.meta.parking ||
+            venue.meta.pets ||
+            venue.meta.wifi ? (
+              <div className="flex justify-between mt-6">
+                {renderFeatures(venue)}
+              </div>
+            ) : (
+              <div className="flex justify-center items-center mt-4 h-16 bg-gray-100 rounded">
+                <p className="text-gray-500">Discover more...</p>
+              </div>
+            )
+          ) : null}
 
           {showActions && (
             <div className="mt-4 flex justify-around">
