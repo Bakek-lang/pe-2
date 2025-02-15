@@ -39,6 +39,7 @@ export default function Profile() {
         const profileBookings = await fetchBookingsByProfile(user, accessToken);
         console.log("This is profileBookings: ", profileBookings);
         setBookings(profileBookings);
+        setIsLoading(false);
 
         console.log("bookings: ", bookings);
       }
@@ -112,9 +113,9 @@ export default function Profile() {
               {user.data.venueManager ? (
                 <div>
                   <h2 className="text-3xl mb-4">My Venues:</h2>
-                  <div className="flex flex-wrap gap-4 items-center">
+                  <div className="flex flex-wrap  items-center">
                     {isLoading ? (
-                      Array.from({ length: 6 }).map((_, index) => (
+                      Array.from({ length: 4 }).map((_, index) => (
                         <VenueCardSkeleton key={index} />
                       ))
                     ) : venues.length > 0 ? (
@@ -134,8 +135,12 @@ export default function Profile() {
               ) : (
                 <div>
                   <h2 className="text-3xl mb-4">Upcoming Bookings:</h2>
-                  <div className="flex flex-wrap gap-4 items-center">
-                    {bookings.length > 0 ? (
+                  <div className="flex flex-wrap  items-center">
+                    {isLoading ? (
+                      Array.from({ length: 4 }).map((_, index) => (
+                        <VenueCardSkeleton key={index} />
+                      ))
+                    ) : bookings.length > 0 ? (
                       bookings.map((booking, index) => (
                         <BookingCard
                           booking={booking}
