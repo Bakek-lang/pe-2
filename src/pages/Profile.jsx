@@ -9,6 +9,7 @@ import { fetchBookingsByProfile } from "../js/API/fetchBookingsByProfile";
 import BookingCard from "../components/bookingCard";
 import VenueCardSkeleton from "../skeleton/VenueCardSkeleton";
 import UserProfileSkeleton from "../skeleton/UserProfileSkeleton";
+import BookingCardSkeleton from "../skeleton/BookingCardSkeleton";
 
 export default function Profile() {
   const { user, accessToken } = useAuthStore();
@@ -138,7 +139,7 @@ export default function Profile() {
                   <div className="flex flex-wrap  items-center">
                     {isLoading ? (
                       Array.from({ length: 4 }).map((_, index) => (
-                        <VenueCardSkeleton key={index} />
+                        <BookingCardSkeleton key={index} />
                       ))
                     ) : bookings.length > 0 ? (
                       bookings.map((booking, index) => (
