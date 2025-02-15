@@ -13,6 +13,7 @@ export default function VenuePage() {
   let { id } = useParams();
 
   const [mainImage, setMainImage] = useState(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     if (venue && venue.media && venue.media.length > 0) {
@@ -60,11 +61,15 @@ export default function VenuePage() {
       <div className="flex flex-col p-4 md:flex-row justify-center  ">
         <div className="media-gallery flex flex-col ">
           <div className="w-full h-96 overflow-hidden">
+            {!imageLoaded && (
+              <div className="w-full h-96 overflow-hidden bg-gray-300 rounded-t-lg" />
+            )}
             <img
               src={mainImage?.url}
               alt={mainImage?.alt}
               className="w-full h-full object-cover rounded-t-lg"
               onError={handleImageError}
+              onLoad={() => setImageLoaded(true)}
             />
           </div>
           <div className="w-full ">
