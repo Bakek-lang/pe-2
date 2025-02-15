@@ -44,7 +44,7 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
 
   return (
     <Link to={`/venue/${venue.id}`}>
-      <div className="rounded-lg shadow-lg m-4 flex flex-col max-w-sm h-full w-96  ">
+      <div className="rounded-lg shadow-lg m-4 flex flex-col max-w-sm h-full sm:w-96  ">
         <img
           src={venue.media[0].url}
           alt="/"
@@ -71,7 +71,9 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
               <p className="ml-0.5">{venue.rating}</p>
             </div>
           </div>
-          <p>{shortenText(venue.description, 20)}</p>
+          <div className="break-all">
+            <p>{shortenText(venue.description, 20)}</p>
+          </div>
           <div className="flex items-center mt-2">
             <FaUsers className="text-2xl" />
             <p className="ml-1">Max Guests: {venue.maxGuests}</p>
