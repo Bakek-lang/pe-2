@@ -44,7 +44,7 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
 
   return (
     <Link to={`/venue/${venue.id}`}>
-      <div className="rounded-lg shadow-lg m-4 pb-4 flex flex-col max-w-sm h-auto w-96 ">
+      <div className="rounded-lg shadow-lg m-4 pb-4 flex flex-col max-w-sm h-full w-96 ">
         <img
           src={venue.media[0].url}
           alt="/"

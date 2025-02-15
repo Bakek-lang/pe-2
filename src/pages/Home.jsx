@@ -42,7 +42,7 @@ export default function Home() {
   return (
     <div>
       <SearchBar />
-      <div className="flex flex-wrap justify-center p-4 items-center">
+      <div className="flex flex-wrap justify-center p-4  items-stretch gap-y-8 ">
         {isLoading
           ? Array.from({ length: 6 }).map((_, index) => (
               <VenueCardSkeleton key={index} />
