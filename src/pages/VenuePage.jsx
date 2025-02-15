@@ -131,8 +131,8 @@ export default function VenuePage() {
               : "Location not available"}
           </p>
 
-          <h1 className="text-2xl ">{venue.name}</h1>
-          <p className="mt-2">{venue.description}</p>
+          <h1 className="text-2xl break-all ">{venue.name}</h1>
+          <p className="mt-2 break-all">{venue.description}</p>
           <div className="flex items-center mt-2">
             <FaUsers size={40} />
             <p className="ml-1">Max Guests: {venue.maxGuests}</p>
