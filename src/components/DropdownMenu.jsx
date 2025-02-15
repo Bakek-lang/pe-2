@@ -54,7 +54,7 @@ export default function DropdownMenu() {
         onClick={onClickHandler}
       >
         <span className="sr-only">Open user menu</span>
-        <CgProfile size={30} />
+        <CgProfile size={30} color="white" />
       </button>
 
       {isOpen && (
