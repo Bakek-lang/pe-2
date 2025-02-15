@@ -7,7 +7,7 @@ export default function Layout() {
   return (
     <>
       <Header />
-      <main className="flex-grow min-h-screen p-4">
+      <main className="flex-grow min-h-screen max-w-screen-xl mx-auto">
         <NotificationContainer />
         <Outlet />
       </main>

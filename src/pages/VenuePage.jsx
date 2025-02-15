@@ -68,21 +68,24 @@ export default function VenuePage() {
             />
           </div>
           <div className="w-full ">
-            <div
-              className={`flex gap-2 mt-4 ${
-                venue.media.length === 4 ? "justify-between" : "overflow-x-auto"
-              }`}
-            >
-              {venue.media.map((media, index) => (
-                <img
-                  key={index}
-                  src={media.url}
-                  alt={media.alt}
-                  onClick={() =>
-                    setMainImage({ url: media.url, alt: media.alt })
-                  }
-                  onError={handleImageError}
-                  className={`object-cover rounded cursor-pointer 
+            {venue.media.length > 1 && (
+              <div
+                className={`flex gap-2 mt-4 ${
+                  venue.media.length === 4
+                    ? "justify-between"
+                    : "overflow-x-auto"
+                }`}
+              >
+                {venue.media.map((media, index) => (
+                  <img
+                    key={index}
+                    src={media.url}
+                    alt={media.alt}
+                    onClick={() =>
+                      setMainImage({ url: media.url, alt: media.alt })
+                    }
+                    onError={handleImageError}
+                    className={`object-cover rounded cursor-pointer 
               ${
                 mainImage && media.url === mainImage.url
                   ? "border-4 border-blue-400"
@@ -90,9 +93,10 @@ export default function VenuePage() {
               } 
               ${venue.media.length === 4 ? "w-1/4 h-20" : "w-20 h-20"}
               `}
-                />
-              ))}
-            </div>
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
         <div className="ml-8">
