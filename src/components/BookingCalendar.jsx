@@ -8,7 +8,7 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
   const { accessToken, user } = useAuthStore();
   const { addNotification } = useNotificationStore();
 
-  const [selectedRange, setSelectedRange] = useState(null);
+  const [selectedRange, setSelectedRange] = useState([]);
   const [guests, setGuests] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -21,24 +21,47 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
     });
   }
 
+  function handleClickDay(date) {
+    if (
+      selectedRange.length !== 2 ||
+      (selectedRange[0] &&
+        selectedRange[1] &&
+        selectedRange[0].getTime() !== selectedRange[1].getTime())
+    ) {
+      setSelectedRange([date, date]);
+    } else {
+      const start = selectedRange[0];
+      if (date < start) {
+        setSelectedRange([date, start]);
+      } else {
+        setSelectedRange([start, date]);
+      }
+    }
+  }
+
   function tileClassName({ date, view }) {
-    if ((view = "month")) {
+    if (view === "month") {
       if (isDateBooked(date)) {
         return "bg-red-500 text-white rounded-full cursor-not-allowed";
       }
-
-      if (selectedRange && selectedRange.length === 2) {
+      if (selectedRange.length === 2) {
         const [start, end] = selectedRange;
-        if (
-          date.toDateString() === start.toDateString() ||
-          date.toDateString() === end.toDateString()
-        ) {
-          return "bg-blue-700 text-white rounded-full cursor-pointer";
-        } else if (date > start && date < end) {
-          return "bg-blue-300 text-white cursor-pointer";
+        if (start.getTime() === end.getTime()) {
+          if (date.toDateString() === start.toDateString()) {
+            return "bg-blue-700 text-white rounded-full cursor-pointer";
+          }
+        } else {
+          if (
+            date.toDateString() === start.toDateString() ||
+            date.toDateString() === end.toDateString()
+          ) {
+            return "bg-blue-700 text-white rounded-full cursor-pointer";
+          }
+          if (date > start && date < end) {
+            return "bg-blue-300 text-white cursor-pointer";
+          }
         }
       }
-
       return "hover:bg-green-600 hover:text-white rounded-full cursor-pointer";
     }
     return "";
@@ -64,17 +87,15 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
       const bookingVenue = await createBooking(bookingData, accessToken);
       console.log("Booked venue: ", bookingVenue);
       addNotification("Booked Venue successfully!", "success");
-      setIsSubmitting(false);
     } catch (error) {
       console.log("Booking venue failed: ", error.message);
       if (!user) {
         addNotification("Please log in to create a booking.", "error");
-        setIsSubmitting(false);
       } else {
         addNotification("Failed to create a booking. ", "error");
-        setIsSubmitting(false);
       }
     }
+    setIsSubmitting(false);
   }
 
   return (
@@ -83,6 +104,7 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
       <Calendar
         selectRange={true}
         onChange={setSelectedRange}
+        onClickDay={handleClickDay}
         value={selectedRange}
         tileClassName={tileClassName}
         next2Label={null}
