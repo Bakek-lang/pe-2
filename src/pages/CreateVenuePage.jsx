@@ -85,6 +85,7 @@ export default function CreateVenuePage() {
             type="text"
             placeholder="Image URL"
             value={imageUrl}
+            maxLength={300}
             onChange={(e) => handleImageChange(index, e.target.value)}
             className="p-2 border rounded"
           />
