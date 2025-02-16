@@ -14,6 +14,7 @@ export default function CreateVenuePage() {
   const [imageUrls, setImageUrls] = useState([""]);
   const [price, setPrice] = useState("");
   const [maxGuests, setMaxGuests] = useState("");
+  const [rating, setRating] = useState("");
 
   function handleImageChange(index, value) {
     setImageUrls((prevImageUrls) => {
@@ -41,6 +42,7 @@ export default function CreateVenuePage() {
           alt: `Image of ${name}`,
         })),
       }),
+      rating: Number(rating),
       price: Number(price),
       maxGuests: Number(maxGuests),
     };
@@ -108,6 +110,17 @@ export default function CreateVenuePage() {
           min="0"
           max="10000"
           className="p-2 border rounded"
+        />
+
+        <input
+          type="number"
+          placeholder="Rating"
+          className="p-2 border rounded"
+          min="1"
+          max="5"
+          required
+          onChange={(e) => setRating(e.target.value)}
+          value={rating}
         />
 
         <input
