@@ -3,10 +3,12 @@ import Calendar from "react-calendar";
 import { createBooking } from "../js/API/createBooking";
 import useAuthStore from "../js/store/useAuthStore";
 import useNotificationStore from "../js/store/useNotificationStore";
+import { useNavigate } from "react-router-dom";
 
 export default function BookingCalendar({ bookings, venueId, maxGuests }) {
   const { accessToken, user } = useAuthStore();
   const { addNotification } = useNotificationStore();
+  const navigate = useNavigate();
 
   const [selectedRange, setSelectedRange] = useState([]);
   const [guests, setGuests] = useState(1);
@@ -87,6 +89,7 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
       const bookingVenue = await createBooking(bookingData, accessToken);
       console.log("Booked venue: ", bookingVenue);
       addNotification("Booked Venue successfully!", "success");
+      navigate("/profile");
     } catch (error) {
       console.log("Booking venue failed: ", error.message);
       if (!user) {
