@@ -13,6 +13,7 @@ export default function VenuePage() {
   let { id } = useParams();
 
   const [mainImage, setMainImage] = useState(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     if (venue && venue.media && venue.media.length > 0) {
@@ -58,13 +59,17 @@ export default function VenuePage() {
   return (
     <div>
       <div className="flex flex-col p-4 md:flex-row justify-center  ">
-        <div className="media-gallery flex flex-col ">
+        <div className="media-gallery flex flex-col md:w-[600px] ">
           <div className="w-full h-96 overflow-hidden">
+            {!imageLoaded && (
+              <div className="w-full h-96 overflow-hidden bg-gray-300 rounded-t-lg" />
+            )}
             <img
               src={mainImage?.url}
               alt={mainImage?.alt}
               className="w-full h-full object-cover rounded-t-lg"
               onError={handleImageError}
+              onLoad={() => setImageLoaded(true)}
             />
           </div>
           <div className="w-full ">
@@ -99,7 +104,7 @@ export default function VenuePage() {
             )}
           </div>
         </div>
-        <div className="ml-8">
+        <div className="md:ml-8 w-full max-w-xl">
           <div className="flex justify-between items-center">
             <div className="mt-2 flex items-center gap-3">
               <img
@@ -126,8 +131,8 @@ export default function VenuePage() {
               : "Location not available"}
           </p>
 
-          <h1 className="text-2xl ">{venue.name}</h1>
-          <p className="mt-2">{venue.description}</p>
+          <h1 className="text-2xl break-all ">{venue.name}</h1>
+          <p className="mt-2 break-all">{venue.description}</p>
           <div className="flex items-center mt-2">
             <FaUsers size={40} />
             <p className="ml-1">Max Guests: {venue.maxGuests}</p>
@@ -141,7 +146,7 @@ export default function VenuePage() {
               {renderFeatures(venue)}
             </div>
           </div>
-          <div className="mt-10 w-full flex justify-start">
+          <div className="mt-10 w-full flex justify-start mx-auto max-w-lg ">
             <BookingCalendar
               bookings={venue.bookings || []}
               venueId={venue.id}

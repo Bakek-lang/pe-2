@@ -30,16 +30,18 @@ export default function BookingCard({ booking, onDelete }) {
   return (
     <Link to={`/venue/${booking.venue.id}`}>
       {" "}
-      <div className="rounded-lg shadow-lg m-4 pb-4 flex flex-col max-w-sm h-lg w-96 ">
-        <img
-          src={booking.venue.media[0].url}
-          alt="/"
-          className="w-full h-60 object-cover rounded-t-lg"
-          onError={(event) => {
-            event.target.onerror = null;
-            event.target.src = "https://placehold.co/600x400";
-          }}
-        />
+      <div className="rounded-lg shadow-lg mx-4 mt-4 flex flex-col max-w-sm h-full w-80 sm:w-96 justify-around ">
+        <div className="w-full h-60 overflow-hidden">
+          <img
+            src={booking.venue.media[0].url}
+            alt="/"
+            className="block w-full h-full object-cover rounded-t-lg"
+            onError={(event) => {
+              event.target.onerror = null;
+              event.target.src = "https://placehold.co/600x400";
+            }}
+          />
+        </div>
         <div className="p-2">
           <div className="flex justify-between ">
             <h2 className="text-xl font-bold">

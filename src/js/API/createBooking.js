@@ -14,7 +14,7 @@ export async function createBooking(bookingData, accessToken) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || "Failed to create venue");
+    throw new Error(errorData.message || "Failed to create booking");
   }
 
   return response.json();

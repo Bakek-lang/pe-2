@@ -3,12 +3,14 @@ import Calendar from "react-calendar";
 import { createBooking } from "../js/API/createBooking";
 import useAuthStore from "../js/store/useAuthStore";
 import useNotificationStore from "../js/store/useNotificationStore";
+import { useNavigate } from "react-router-dom";
 
 export default function BookingCalendar({ bookings, venueId, maxGuests }) {
-  const { accessToken } = useAuthStore();
+  const { accessToken, user } = useAuthStore();
   const { addNotification } = useNotificationStore();
+  const navigate = useNavigate();
 
-  const [selectedRange, setSelectedRange] = useState(null);
+  const [selectedRange, setSelectedRange] = useState([]);
   const [guests, setGuests] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -21,25 +23,48 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
     });
   }
 
-  function tileClassName({ date, view }) {
-    if ((view = "month")) {
-      if (isDateBooked(date)) {
-        return "bg-red-500 text-white rounded-full cursor-not-allowed";
+  function handleClickDay(date) {
+    if (
+      selectedRange.length !== 2 ||
+      (selectedRange[0] &&
+        selectedRange[1] &&
+        selectedRange[0].getTime() !== selectedRange[1].getTime())
+    ) {
+      setSelectedRange([date, date]);
+    } else {
+      const start = selectedRange[0];
+      if (date < start) {
+        setSelectedRange([date, start]);
+      } else {
+        setSelectedRange([start, date]);
       }
+    }
+  }
 
-      if (selectedRange && selectedRange.length === 2) {
+  function tileClassName({ date, view }) {
+    if (view === "month") {
+      if (isDateBooked(date)) {
+        return "text-red-500  cursor-not-allowed";
+      }
+      if (selectedRange.length === 2) {
         const [start, end] = selectedRange;
-        if (
-          date.toDateString() === start.toDateString() ||
-          date.toDateString() === end.toDateString()
-        ) {
-          return "bg-blue-700 text-white rounded-full cursor-pointer";
-        } else if (date > start && date < end) {
-          return "bg-blue-300 text-white cursor-pointer";
+        if (start.getTime() === end.getTime()) {
+          if (date.toDateString() === start.toDateString()) {
+            return "bg-blue-600 text-white rounded-lg cursor-pointer";
+          }
+        } else {
+          if (date.toDateString() === start.toDateString()) {
+            return "bg-blue-600 text-white rounded-l-lg cursor-pointer";
+          }
+          if (date.toDateString() === end.toDateString()) {
+            return "bg-blue-600 text-white rounded-r-lg cursor-pointer";
+          }
+          if (date > start && date < end) {
+            return "bg-blue-300 text-white cursor-pointer";
+          }
         }
       }
-
-      return "hover:bg-green-600 hover:text-white rounded-full cursor-pointer";
+      return "hover:bg-blue-600 hover:text-white rounded-full cursor-pointer";
     }
     return "";
   }
@@ -47,6 +72,18 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
   async function handleBooking() {
     if (!selectedRange || selectedRange.length !== 2) {
       addNotification("Please select a valid date range.", "error");
+      return;
+    }
+
+    if (!user) {
+      addNotification("Please log in to book a Venue", "error");
+    }
+
+    if (user.data.venueManager) {
+      addNotification(
+        "Please turn off Venue Manager in profile to book a Venue",
+        "error"
+      );
       return;
     }
     setIsSubmitting(true);
@@ -64,18 +101,25 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
       const bookingVenue = await createBooking(bookingData, accessToken);
       console.log("Booked venue: ", bookingVenue);
       addNotification("Booked Venue successfully!", "success");
+      navigate("/profile");
     } catch (error) {
       console.log("Booking venue failed: ", error.message);
-      addNotification("Failed to create a booking. ", "error");
+      if (!user) {
+        addNotification("Please log in to create a booking.", "error");
+      } else {
+        addNotification("Failed to create a booking. ", "error");
+      }
     }
+    setIsSubmitting(false);
   }
 
   return (
-    <div className="p-4 border border-gray-300 rounded-md">
+    <div className="p-4 border border-gray-300 rounded-md ">
       <h2 className="text-xl font-bold mb-2 text-center">Booking Calendar</h2>
       <Calendar
         selectRange={true}
         onChange={setSelectedRange}
+        onClickDay={handleClickDay}
         value={selectedRange}
         tileClassName={tileClassName}
         next2Label={null}

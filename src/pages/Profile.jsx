@@ -9,6 +9,7 @@ import { fetchBookingsByProfile } from "../js/API/fetchBookingsByProfile";
 import BookingCard from "../components/bookingCard";
 import VenueCardSkeleton from "../skeleton/VenueCardSkeleton";
 import UserProfileSkeleton from "../skeleton/UserProfileSkeleton";
+import BookingCardSkeleton from "../skeleton/BookingCardSkeleton";
 
 export default function Profile() {
   const { user, accessToken } = useAuthStore();
@@ -39,6 +40,7 @@ export default function Profile() {
         const profileBookings = await fetchBookingsByProfile(user, accessToken);
         console.log("This is profileBookings: ", profileBookings);
         setBookings(profileBookings);
+        setIsLoading(false);
 
         console.log("bookings: ", bookings);
       }
@@ -64,11 +66,11 @@ export default function Profile() {
   }
 
   return (
-    <div className="flex gap-6 p-6">
+    <div className="flex gap-6 p-6 md:flex-row flex-col ">
       {isLoading ? (
         <UserProfileSkeleton />
       ) : (
-        <div className="border border-gray-300 flex flex-col items-center shadow-md rounded-lg w-1/3 self-start p-6">
+        <div className="border border-gray-300 flex flex-col items-center shadow-md rounded-lg md:w-1/3 md:self-start p-6">
           <div className="flex flex-col items-center">
             {!imageLoaded && (
               <div className="h-28 w-28 rounded-full bg-gray-300 border animate-pulse" />
@@ -108,13 +110,13 @@ export default function Profile() {
       <div className="w-full">
         {!isEditing ? (
           <div className="border border-gray-300 shadow-md rounded-lg">
-            <div className="p-6">
+            <div className="p-6 flex justify-center ">
               {user.data.venueManager ? (
-                <div>
+                <div className="w-full">
                   <h2 className="text-3xl mb-4">My Venues:</h2>
-                  <div className="flex flex-wrap gap-4 items-center">
+                  <div className="flex flex-wrap  justify-center md:justify-start gap-y-4">
                     {isLoading ? (
-                      Array.from({ length: 6 }).map((_, index) => (
+                      Array.from({ length: 4 }).map((_, index) => (
                         <VenueCardSkeleton key={index} />
                       ))
                     ) : venues.length > 0 ? (
@@ -132,10 +134,14 @@ export default function Profile() {
                   </div>
                 </div>
               ) : (
-                <div>
+                <div className="w-full">
                   <h2 className="text-3xl mb-4">Upcoming Bookings:</h2>
-                  <div className="flex flex-wrap gap-4 items-center">
-                    {bookings.length > 0 ? (
+                  <div className="flex flex-wrap  justify-center md:justify-start gap-y-4">
+                    {isLoading ? (
+                      Array.from({ length: 4 }).map((_, index) => (
+                        <BookingCardSkeleton key={index} />
+                      ))
+                    ) : bookings.length > 0 ? (
                       bookings.map((booking, index) => (
                         <BookingCard
                           booking={booking}

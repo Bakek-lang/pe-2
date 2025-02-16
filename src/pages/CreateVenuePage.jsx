@@ -11,23 +11,35 @@ export default function CreateVenuePage() {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrls, setImageUrls] = useState([""]);
   const [price, setPrice] = useState("");
   const [maxGuests, setMaxGuests] = useState("");
+
+  function handleImageChange(index, value) {
+    setImageUrls((prevImageUrls) => {
+      const updated = [...prevImageUrls];
+      updated[index] = value;
+      return updated;
+    });
+  }
+
+  function handleAddImage() {
+    setImageUrls((prevImageUrls) => [...prevImageUrls, ""]);
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
 
+    const filteredImages = imageUrls.filter((url) => url.trim() !== "");
+
     const venueData = {
       name,
       description,
-      ...(imageUrl && {
-        media: [
-          {
-            url: imageUrl,
-            alt: `Image of ${name}`,
-          },
-        ],
+      ...(filteredImages.length > 0 && {
+        media: filteredImages.map((url) => ({
+          url,
+          alt: `Image of ${name}`,
+        })),
       }),
       price: Number(price),
       maxGuests: Number(maxGuests),
@@ -67,13 +79,24 @@ export default function CreateVenuePage() {
           className="p-2 border rounded"
         ></textarea>
 
-        <input
-          type="text"
-          placeholder="Image URL"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          className="p-2 border rounded"
-        />
+        {imageUrls.map((imageUrl, index) => (
+          <input
+            key={index}
+            type="text"
+            placeholder="Image URL"
+            value={imageUrl}
+            onChange={(e) => handleImageChange(index, e.target.value)}
+            className="p-2 border rounded"
+          />
+        ))}
+
+        <button
+          type="button"
+          onClick={handleAddImage}
+          className="bg-green-500 text-white p-2 rounded"
+        >
+          Add Another Image
+        </button>
 
         <input
           type="number"
@@ -82,6 +105,7 @@ export default function CreateVenuePage() {
           onChange={(e) => setPrice(e.target.value)}
           required
           min="0"
+          max="10000"
           className="p-2 border rounded"
         />
 
@@ -92,6 +116,7 @@ export default function CreateVenuePage() {
           onChange={(e) => setMaxGuests(e.target.value)}
           required
           min="1"
+          max="100"
           className="p-2 border rounded"
         />
 
