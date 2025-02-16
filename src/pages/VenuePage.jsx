@@ -59,7 +59,7 @@ export default function VenuePage() {
   return (
     <div>
       <div className="flex flex-col p-4 md:flex-row justify-center  ">
-        <div className="media-gallery flex flex-col ">
+        <div className="media-gallery flex flex-col md:w-[600px] ">
           <div className="w-full h-96 overflow-hidden">
             {!imageLoaded && (
               <div className="w-full h-96 overflow-hidden bg-gray-300 rounded-t-lg" />
