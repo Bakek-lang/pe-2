@@ -75,6 +75,10 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
       return;
     }
 
+    if (!user) {
+      addNotification("Please log in to book a Venue", "error");
+    }
+
     if (user.data.venueManager) {
       addNotification(
         "Please turn off Venue Manager in profile to book a Venue",
