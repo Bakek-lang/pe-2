@@ -104,7 +104,7 @@ export default function VenuePage() {
             )}
           </div>
         </div>
-        <div className="md:ml-8">
+        <div className="md:ml-8 w-full max-w-xl">
           <div className="flex justify-between items-center">
             <div className="mt-2 flex items-center gap-3">
               <img
@@ -146,7 +146,7 @@ export default function VenuePage() {
               {renderFeatures(venue)}
             </div>
           </div>
-          <div className="mt-10 w-full flex justify-start ">
+          <div className="mt-10 w-full flex justify-start mx-auto max-w-lg ">
             <BookingCalendar
               bookings={venue.bookings || []}
               venueId={venue.id}
