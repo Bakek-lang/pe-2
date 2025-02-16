@@ -5,7 +5,7 @@ import useAuthStore from "../js/store/useAuthStore";
 import useNotificationStore from "../js/store/useNotificationStore";
 
 export default function BookingCalendar({ bookings, venueId, maxGuests }) {
-  const { accessToken } = useAuthStore();
+  const { accessToken, user } = useAuthStore();
   const { addNotification } = useNotificationStore();
 
   const [selectedRange, setSelectedRange] = useState(null);
@@ -66,7 +66,11 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
       addNotification("Booked Venue successfully!", "success");
     } catch (error) {
       console.log("Booking venue failed: ", error.message);
-      addNotification("Failed to create a booking. ", "error");
+      if (!user) {
+        addNotification("Please log in to create a booking.", "error");
+      } else {
+        addNotification("Failed to create a booking. ", "error");
+      }
     }
   }
 
