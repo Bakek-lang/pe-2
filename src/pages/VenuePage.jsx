@@ -104,7 +104,7 @@ export default function VenuePage() {
             )}
           </div>
         </div>
-        <div className="ml-8">
+        <div className="md:ml-8">
           <div className="flex justify-between items-center">
             <div className="mt-2 flex items-center gap-3">
               <img
