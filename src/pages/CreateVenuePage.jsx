@@ -105,6 +105,7 @@ export default function CreateVenuePage() {
           onChange={(e) => setPrice(e.target.value)}
           required
           min="0"
+          max="10000"
           className="p-2 border rounded"
         />
 
@@ -115,6 +116,7 @@ export default function CreateVenuePage() {
           onChange={(e) => setMaxGuests(e.target.value)}
           required
           min="1"
+          max="100"
           className="p-2 border rounded"
         />
 
