@@ -146,7 +146,7 @@ export default function VenuePage() {
               {renderFeatures(venue)}
             </div>
           </div>
-          <div className="mt-10 w-full flex justify-start">
+          <div className="mt-10 w-full flex justify-start ">
             <BookingCalendar
               bookings={venue.bookings || []}
               venueId={venue.id}
