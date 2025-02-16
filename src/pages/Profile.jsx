@@ -66,11 +66,11 @@ export default function Profile() {
   }
 
   return (
-    <div className="flex gap-6 p-6">
+    <div className="flex gap-6 p-6 md:flex-row flex-col ">
       {isLoading ? (
         <UserProfileSkeleton />
       ) : (
-        <div className="border border-gray-300 flex flex-col items-center shadow-md rounded-lg w-1/3 self-start p-6">
+        <div className="border border-gray-300 flex flex-col items-center shadow-md rounded-lg md:w-1/3 md:self-start p-6">
           <div className="flex flex-col items-center">
             {!imageLoaded && (
               <div className="h-28 w-28 rounded-full bg-gray-300 border animate-pulse" />
@@ -110,11 +110,11 @@ export default function Profile() {
       <div className="w-full">
         {!isEditing ? (
           <div className="border border-gray-300 shadow-md rounded-lg">
-            <div className="p-6">
+            <div className="p-6 flex justify-center ">
               {user.data.venueManager ? (
                 <div>
                   <h2 className="text-3xl mb-4">My Venues:</h2>
-                  <div className="flex flex-wrap  items-center">
+                  <div className="flex flex-wrap  justify-center md:justify-start gap-y-4">
                     {isLoading ? (
                       Array.from({ length: 4 }).map((_, index) => (
                         <VenueCardSkeleton key={index} />
