@@ -74,6 +74,14 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
       addNotification("Please select a valid date range.", "error");
       return;
     }
+
+    if (user.data.venueManager) {
+      addNotification(
+        "Please turn off Venue Manager in profile to book a Venue",
+        "error"
+      );
+      return;
+    }
     setIsSubmitting(true);
 
     const [dateFrom, dateTo] = selectedRange;
