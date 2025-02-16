@@ -42,27 +42,27 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
   function tileClassName({ date, view }) {
     if (view === "month") {
       if (isDateBooked(date)) {
-        return "bg-red-500 text-white rounded-full cursor-not-allowed";
+        return "text-red-500  cursor-not-allowed";
       }
       if (selectedRange.length === 2) {
         const [start, end] = selectedRange;
         if (start.getTime() === end.getTime()) {
           if (date.toDateString() === start.toDateString()) {
-            return "bg-blue-700 text-white rounded-full cursor-pointer";
+            return "bg-blue-600 text-white rounded-lg cursor-pointer";
           }
         } else {
-          if (
-            date.toDateString() === start.toDateString() ||
-            date.toDateString() === end.toDateString()
-          ) {
-            return "bg-blue-700 text-white rounded-full cursor-pointer";
+          if (date.toDateString() === start.toDateString()) {
+            return "bg-blue-600 text-white rounded-l-lg cursor-pointer";
+          }
+          if (date.toDateString() === end.toDateString()) {
+            return "bg-blue-600 text-white rounded-r-lg cursor-pointer";
           }
           if (date > start && date < end) {
             return "bg-blue-300 text-white cursor-pointer";
           }
         }
       }
-      return "hover:bg-green-600 hover:text-white rounded-full cursor-pointer";
+      return "hover:bg-blue-600 hover:text-white rounded-full cursor-pointer";
     }
     return "";
   }
