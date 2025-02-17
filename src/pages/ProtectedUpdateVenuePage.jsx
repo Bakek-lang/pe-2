@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import UpdateVenuePage from "./updateVenuePage";
+import UpdateVenuePage from "./UpdateVenuePage";
 import useAuthStore from "../js/store/useAuthStore";
 import { useEffect, useState } from "react";
 import { fetchVenueById } from "../js/API/fetchVenue";

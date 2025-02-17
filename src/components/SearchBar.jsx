@@ -75,7 +75,7 @@ export default function SearchBar() {
       <div className="relative">
         <input
           type="text"
-          placeholder="Search products..."
+          placeholder="Search venues..."
           value={searchTerm}
           onChange={handleSearchChange}
           className="border-2 border-gray-400 p-2 rounded-lg"
