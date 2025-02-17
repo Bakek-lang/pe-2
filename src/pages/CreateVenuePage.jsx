@@ -142,7 +142,7 @@ export default function CreateVenuePage() {
           className="p-2 border rounded"
         />
 
-        <div className="flex justify-around gap-2 text-xl items-center">
+        <div className="flex justify-around gap-2 md:text-xl items-center">
           <label className="flex items-center ">
             <input
               type="checkbox"
@@ -150,7 +150,7 @@ export default function CreateVenuePage() {
               onChange={(e) =>
                 setMeta((prevMeta) => ({ ...prevMeta, wifi: e.target.checked }))
               }
-              className="mr-2 h-5 w-5 "
+              className="mr-2 md:h-5 md:w-5 "
             />
             Wifi
           </label>
@@ -164,7 +164,7 @@ export default function CreateVenuePage() {
                   parking: e.target.checked,
                 }))
               }
-              className="mr-2 h-5 w-5 "
+              className="mr-2 md:h-5 md:w-5 "
             />
             Parking
           </label>
@@ -178,7 +178,7 @@ export default function CreateVenuePage() {
                   breakfast: e.target.checked,
                 }))
               }
-              className="mr-2 h-5 w-5 "
+              className="mr-2 md:h-5 md:w-5 "
             />
             Breakfast
           </label>
@@ -189,7 +189,7 @@ export default function CreateVenuePage() {
               onChange={(e) =>
                 setMeta((prevMeta) => ({ ...prevMeta, pets: e.target.checked }))
               }
-              className="mr-2 h-5 w-5 "
+              className="mr-2 md:h-5 md:w-5 "
             />
             Pets
           </label>
