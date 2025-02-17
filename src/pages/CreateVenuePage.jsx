@@ -14,6 +14,14 @@ export default function CreateVenuePage() {
   const [imageUrls, setImageUrls] = useState([""]);
   const [price, setPrice] = useState("");
   const [maxGuests, setMaxGuests] = useState("");
+  const [rating, setRating] = useState("");
+
+  const [meta, setMeta] = useState({
+    wifi: false,
+    parking: false,
+    breakfast: false,
+    pets: false,
+  });
 
   function handleImageChange(index, value) {
     setImageUrls((prevImageUrls) => {
@@ -41,8 +49,10 @@ export default function CreateVenuePage() {
           alt: `Image of ${name}`,
         })),
       }),
+      rating: Number(rating),
       price: Number(price),
       maxGuests: Number(maxGuests),
+      meta,
     };
 
     console.log("VENUE DATA: ", venueData);
@@ -85,6 +95,7 @@ export default function CreateVenuePage() {
             type="text"
             placeholder="Image URL"
             value={imageUrl}
+            maxLength={300}
             onChange={(e) => handleImageChange(index, e.target.value)}
             className="p-2 border rounded"
           />
@@ -93,7 +104,7 @@ export default function CreateVenuePage() {
         <button
           type="button"
           onClick={handleAddImage}
-          className="bg-green-500 text-white p-2 rounded"
+          className="bg-green-500 text-black p-2 rounded"
         >
           Add Another Image
         </button>
@@ -111,6 +122,17 @@ export default function CreateVenuePage() {
 
         <input
           type="number"
+          placeholder="Rating"
+          className="p-2 border rounded"
+          min="1"
+          max="5"
+          required
+          onChange={(e) => setRating(e.target.value)}
+          value={rating}
+        />
+
+        <input
+          type="number"
           placeholder="Max Guests"
           value={maxGuests}
           onChange={(e) => setMaxGuests(e.target.value)}
@@ -119,6 +141,59 @@ export default function CreateVenuePage() {
           max="100"
           className="p-2 border rounded"
         />
+
+        <div className="flex justify-around gap-2 md:text-xl items-center">
+          <label className="flex items-center ">
+            <input
+              type="checkbox"
+              checked={meta.wifi}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({ ...prevMeta, wifi: e.target.checked }))
+              }
+              className="mr-2 md:h-5 md:w-5 "
+            />
+            Wifi
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={meta.parking}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({
+                  ...prevMeta,
+                  parking: e.target.checked,
+                }))
+              }
+              className="mr-2 md:h-5 md:w-5 "
+            />
+            Parking
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={meta.breakfast}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({
+                  ...prevMeta,
+                  breakfast: e.target.checked,
+                }))
+              }
+              className="mr-2 md:h-5 md:w-5 "
+            />
+            Breakfast
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={meta.pets}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({ ...prevMeta, pets: e.target.checked }))
+              }
+              className="mr-2 md:h-5 md:w-5 "
+            />
+            Pets
+          </label>
+        </div>
 
         <button type="submit" className="bg-blue-500 text-white p-2 rounded">
           Create Venue

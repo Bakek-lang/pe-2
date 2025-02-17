@@ -38,7 +38,7 @@ export default function App() {
           />
           <Route
             path="/venue/:venueId/bookings"
-            element={<VenueBookingsPage />}
+            element={user ? <VenueBookingsPage /> : <Navigate to="/" />}
           />
           <Route path="*" element={<PageNotFound />} />
         </Route>

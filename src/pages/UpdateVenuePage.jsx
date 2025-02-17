@@ -11,9 +11,32 @@ export default function UpdateVenuePage({ venue }) {
 
   const [name, setName] = useState(venue.name);
   const [description, setDescription] = useState(venue.description);
-  const [imageUrl, setImageUrl] = useState(venue.media[0].url);
+  const [imageUrls, setImageUrls] = useState(
+    venue.media && venue.media.length > 0
+      ? venue.media.map((item) => item.url)
+      : [""]
+  );
   const [price, setPrice] = useState(venue.price);
   const [maxGuests, setMaxGuests] = useState(venue.maxGuests);
+
+  const [meta, setMeta] = useState({
+    wifi: false,
+    parking: false,
+    breakfast: false,
+    pets: false,
+  });
+
+  function handleImageChange(index, value) {
+    setImageUrls((prevImageUrls) => {
+      const updated = [...prevImageUrls];
+      updated[index] = value;
+      return updated;
+    });
+  }
+
+  function handleAddImage() {
+    setImageUrls((prevImageUrls) => [...prevImageUrls, ""]);
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -21,16 +44,15 @@ export default function UpdateVenuePage({ venue }) {
     const venueData = {
       name,
       description,
-      ...(imageUrl && {
-        media: [
-          {
-            url: imageUrl,
-            alt: `Image of ${name}`,
-          },
-        ],
+      ...(imageUrls.length > 0 && {
+        media: imageUrls.map((url, index) => ({
+          url,
+          alt: `Image ${index + 1} of ${name}`,
+        })),
       }),
       price: Number(price),
       maxGuests: Number(maxGuests),
+      meta,
     };
 
     try {
@@ -67,14 +89,24 @@ export default function UpdateVenuePage({ venue }) {
           className="p-2 border rounded"
         ></textarea>
 
-        <label>Image URL</label>
-        <input
-          type="text"
-          placeholder="Image URL"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          className="p-2 border rounded"
-        />
+        <label>Image URLs</label>
+        {imageUrls.map((url, index) => (
+          <input
+            key={index}
+            type="text"
+            placeholder={`Image URL ${index + 1}`}
+            value={url}
+            onChange={(e) => handleImageChange(index, e.target.value)}
+            className="p-2 border rounded"
+          />
+        ))}
+        <button
+          type="button"
+          onClick={handleAddImage}
+          className="bg-green-500 text-white p-2 rounded"
+        >
+          Add Another Image
+        </button>
 
         <label>Price</label>
         <input
@@ -97,6 +129,58 @@ export default function UpdateVenuePage({ venue }) {
           min="1"
           className="p-2 border rounded"
         />
+        <div className="flex justify-around gap-2 md:text-xl items-center">
+          <label className="flex items-center ">
+            <input
+              type="checkbox"
+              checked={meta.wifi}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({ ...prevMeta, wifi: e.target.checked }))
+              }
+              className="mr-2 md:h-5 md:w-5 "
+            />
+            Wifi
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={meta.parking}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({
+                  ...prevMeta,
+                  parking: e.target.checked,
+                }))
+              }
+              className="mr-2 md:h-5 md:w-5 "
+            />
+            Parking
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={meta.breakfast}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({
+                  ...prevMeta,
+                  breakfast: e.target.checked,
+                }))
+              }
+              className="mr-2 md:h-5 md:w-5 "
+            />
+            Breakfast
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={meta.pets}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({ ...prevMeta, pets: e.target.checked }))
+              }
+              className="mr-2 md:h-5 md:w-5 "
+            />
+            Pets
+          </label>
+        </div>
 
         <button type="submit" className="bg-blue-500 text-white p-2 rounded">
           Update Venue

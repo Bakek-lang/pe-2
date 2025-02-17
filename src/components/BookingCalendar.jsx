@@ -107,7 +107,10 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
       if (!user) {
         addNotification("Please log in to create a booking.", "error");
       } else {
-        addNotification("Failed to create a booking. ", "error");
+        addNotification(
+          error.message ? `${error.message}` : "Failed to create a booking. ",
+          "error"
+        );
       }
     }
     setIsSubmitting(false);

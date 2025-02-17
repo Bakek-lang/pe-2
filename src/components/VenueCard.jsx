@@ -120,7 +120,7 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
                 Delete
               </button>
               <button
-                className="py-2 px-3 rounded-lg text-white bg-green-500"
+                className="py-2 px-3 rounded-lg text-black bg-green-500"
                 onClick={handleViewBooking}
               >
                 View Bookings
