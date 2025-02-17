@@ -142,9 +142,7 @@ export default function VenuePage() {
             <p className="ml-1">{venue.price} NOK per night</p>
           </div>
           <div>
-            <div className="flex justify-between mt-4">
-              {renderFeatures(venue)}
-            </div>
+            <div className="flex gap-8  mt-4">{renderFeatures(venue)}</div>
           </div>
           <div className="mt-10 w-full flex justify-start mx-auto max-w-lg ">
             <BookingCalendar
