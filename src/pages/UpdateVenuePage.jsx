@@ -15,6 +15,13 @@ export default function UpdateVenuePage({ venue }) {
   const [price, setPrice] = useState(venue.price);
   const [maxGuests, setMaxGuests] = useState(venue.maxGuests);
 
+  const [meta, setMeta] = useState({
+    wifi: false,
+    parking: false,
+    breakfast: false,
+    pets: false,
+  });
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -31,6 +38,7 @@ export default function UpdateVenuePage({ venue }) {
       }),
       price: Number(price),
       maxGuests: Number(maxGuests),
+      meta,
     };
 
     try {
@@ -97,6 +105,58 @@ export default function UpdateVenuePage({ venue }) {
           min="1"
           className="p-2 border rounded"
         />
+        <div className="flex justify-around gap-2 md:text-xl items-center">
+          <label className="flex items-center ">
+            <input
+              type="checkbox"
+              checked={meta.wifi}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({ ...prevMeta, wifi: e.target.checked }))
+              }
+              className="mr-2 md:h-5 md:w-5 "
+            />
+            Wifi
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={meta.parking}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({
+                  ...prevMeta,
+                  parking: e.target.checked,
+                }))
+              }
+              className="mr-2 md:h-5 md:w-5 "
+            />
+            Parking
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={meta.breakfast}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({
+                  ...prevMeta,
+                  breakfast: e.target.checked,
+                }))
+              }
+              className="mr-2 md:h-5 md:w-5 "
+            />
+            Breakfast
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={meta.pets}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({ ...prevMeta, pets: e.target.checked }))
+              }
+              className="mr-2 md:h-5 md:w-5 "
+            />
+            Pets
+          </label>
+        </div>
 
         <button type="submit" className="bg-blue-500 text-white p-2 rounded">
           Update Venue
