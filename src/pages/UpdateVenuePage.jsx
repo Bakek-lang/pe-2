@@ -103,7 +103,7 @@ export default function UpdateVenuePage({ venue }) {
         <button
           type="button"
           onClick={handleAddImage}
-          className="bg-green-500 text-white p-2 rounded"
+          className="bg-green-500 text-black p-2 rounded"
         >
           Add Another Image
         </button>
