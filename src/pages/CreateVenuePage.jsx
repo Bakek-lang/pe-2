@@ -16,6 +16,13 @@ export default function CreateVenuePage() {
   const [maxGuests, setMaxGuests] = useState("");
   const [rating, setRating] = useState("");
 
+  const [meta, setMeta] = useState({
+    wifi: false,
+    parking: false,
+    breakfast: false,
+    pets: false,
+  });
+
   function handleImageChange(index, value) {
     setImageUrls((prevImageUrls) => {
       const updated = [...prevImageUrls];
@@ -45,6 +52,7 @@ export default function CreateVenuePage() {
       rating: Number(rating),
       price: Number(price),
       maxGuests: Number(maxGuests),
+      meta,
     };
 
     console.log("VENUE DATA: ", venueData);
@@ -133,6 +141,59 @@ export default function CreateVenuePage() {
           max="100"
           className="p-2 border rounded"
         />
+
+        <div className="flex justify-around gap-2 text-xl items-center">
+          <label className="flex items-center ">
+            <input
+              type="checkbox"
+              checked={meta.wifi}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({ ...prevMeta, wifi: e.target.checked }))
+              }
+              className="mr-2 h-5 w-5 "
+            />
+            Wifi
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={meta.parking}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({
+                  ...prevMeta,
+                  parking: e.target.checked,
+                }))
+              }
+              className="mr-2 h-5 w-5 "
+            />
+            Parking
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={meta.breakfast}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({
+                  ...prevMeta,
+                  breakfast: e.target.checked,
+                }))
+              }
+              className="mr-2 h-5 w-5 "
+            />
+            Breakfast
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={meta.pets}
+              onChange={(e) =>
+                setMeta((prevMeta) => ({ ...prevMeta, pets: e.target.checked }))
+              }
+              className="mr-2 h-5 w-5 "
+            />
+            Pets
+          </label>
+        </div>
 
         <button type="submit" className="bg-blue-500 text-white p-2 rounded">
           Create Venue
