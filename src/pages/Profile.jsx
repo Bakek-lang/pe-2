@@ -114,7 +114,7 @@ export default function Profile() {
               {user.data.venueManager ? (
                 <div className="w-full">
                   <h2 className="text-3xl mb-4">My Venues:</h2>
-                  <div className="flex flex-wrap  justify-center md:justify-start gap-y-4">
+                  <div className="flex flex-wrap  justify-center md:justify-start gap-y-4 mb-4">
                     {isLoading ? (
                       Array.from({ length: 4 }).map((_, index) => (
                         <VenueCardSkeleton key={index} />
