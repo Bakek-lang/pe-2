@@ -95,7 +95,7 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
             venue.meta.parking ||
             venue.meta.pets ||
             venue.meta.wifi ? (
-              <div className="flex justify-between mt-6">
+              <div className="flex gap-8 md:gap-14  mt-6">
                 {renderFeatures(venue)}
               </div>
             ) : (
