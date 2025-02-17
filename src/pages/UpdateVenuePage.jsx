@@ -11,7 +11,11 @@ export default function UpdateVenuePage({ venue }) {
 
   const [name, setName] = useState(venue.name);
   const [description, setDescription] = useState(venue.description);
-  const [imageUrl, setImageUrl] = useState(venue.media[0].url);
+  const [imageUrls, setImageUrls] = useState(
+    venue.media && venue.media.length > 0
+      ? venue.media.map((item) => item.url)
+      : [""]
+  );
   const [price, setPrice] = useState(venue.price);
   const [maxGuests, setMaxGuests] = useState(venue.maxGuests);
 
@@ -22,19 +26,29 @@ export default function UpdateVenuePage({ venue }) {
     pets: false,
   });
 
+  function handleImageChange(index, value) {
+    setImageUrls((prevImageUrls) => {
+      const updated = [...prevImageUrls];
+      updated[index] = value;
+      return updated;
+    });
+  }
+
+  function handleAddImage() {
+    setImageUrls((prevImageUrls) => [...prevImageUrls, ""]);
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
 
     const venueData = {
       name,
       description,
-      ...(imageUrl && {
-        media: [
-          {
-            url: imageUrl,
-            alt: `Image of ${name}`,
-          },
-        ],
+      ...(imageUrls.length > 0 && {
+        media: imageUrls.map((url, index) => ({
+          url,
+          alt: `Image ${index + 1} of ${name}`,
+        })),
       }),
       price: Number(price),
       maxGuests: Number(maxGuests),
@@ -75,14 +89,24 @@ export default function UpdateVenuePage({ venue }) {
           className="p-2 border rounded"
         ></textarea>
 
-        <label>Image URL</label>
-        <input
-          type="text"
-          placeholder="Image URL"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          className="p-2 border rounded"
-        />
+        <label>Image URLs</label>
+        {imageUrls.map((url, index) => (
+          <input
+            key={index}
+            type="text"
+            placeholder={`Image URL ${index + 1}`}
+            value={url}
+            onChange={(e) => handleImageChange(index, e.target.value)}
+            className="p-2 border rounded"
+          />
+        ))}
+        <button
+          type="button"
+          onClick={handleAddImage}
+          className="bg-green-500 text-white p-2 rounded"
+        >
+          Add Another Image
+        </button>
 
         <label>Price</label>
         <input
