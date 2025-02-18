@@ -6,7 +6,7 @@ export async function fetchVenueById(id) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log("Failed to fetch venue details: ", error);
+    console.error("Failed to fetch venue details: ", error);
     throw error;
   }
 }
