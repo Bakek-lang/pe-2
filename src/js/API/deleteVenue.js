@@ -12,7 +12,6 @@ export async function deleteVenue(venueId, accessToken) {
       },
     }
   );
-  console.log("Response: ", response);
 
   if (!response.ok) {
     const errorData = await response.json();
