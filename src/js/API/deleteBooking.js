@@ -12,7 +12,6 @@ export async function deleteBooking(bookingId, accessToken) {
       },
     }
   );
-  console.log("Response: ", response);
 
   if (!response.ok) {
     const errorData = await response.json();
