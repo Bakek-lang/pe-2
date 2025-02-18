@@ -61,15 +61,12 @@ export default function CreateVenuePage() {
       meta,
     };
 
-    console.log("VENUE DATA: ", venueData);
-
     try {
       const createdVenue = await createVenue(venueData, accessToken);
-      console.log("Created Venue", createdVenue);
       addNotification("Created Venue successfully!", "success");
       navigate(`/venue/${createdVenue.data.id}`);
     } catch (error) {
-      console.log("Creating venue failed", error.message);
+      console.error("Creating venue failed", error.message);
       addNotification("Failed to create a venue.", "error");
     }
   }
