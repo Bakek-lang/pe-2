@@ -19,7 +19,7 @@ export default function VenueBookingsPage() {
         const venueData = await fetchVenueById(venueId);
         setVenue(venueData.data);
       } catch (error) {
-        console.log("Error getting venue data.", error);
+        console.error("Error getting venue data.", error);
         setIsError("Error fetching venue data.");
       }
       setIsLoading(false);

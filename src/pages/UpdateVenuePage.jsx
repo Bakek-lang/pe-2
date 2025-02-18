@@ -65,11 +65,10 @@ export default function UpdateVenuePage({ venue }) {
 
     try {
       const updatedVenue = await updateVenue(venueData, accessToken, venue.id);
-      console.log("Updated Venue: ", updatedVenue);
       addNotification("Updated Venue successfully!", "success");
       navigate(`/venue/${updatedVenue.data.id}`);
     } catch (error) {
-      console.log("Updating venue failed:", error.message);
+      console.error("Updating venue failed:", error.message);
       addNotification("Failed to update venue.", "error");
     }
   }

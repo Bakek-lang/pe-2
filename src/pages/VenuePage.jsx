@@ -34,10 +34,9 @@ export default function VenuePage() {
       try {
         setIsError(false);
         const venueData = await fetchVenueById(id);
-        console.log("This is the venue data: ", venueData);
         setVenue(venueData.data);
       } catch (error) {
-        console.log("Error getting venue data: ", error);
+        console.error("Error getting venue data: ", error);
       }
       setIsLoading(false);
     }
