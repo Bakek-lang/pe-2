@@ -29,12 +29,10 @@ export default function ProfileEditForm({ setIsEditing }) {
 
     try {
       const updatedUser = await updateUser(updatedUserData, user, accessToken);
-      console.log("Update user is successful!", updatedUser);
       updateUserDetails(updatedUser);
       addNotification("Profile updated successfully!", "success");
       setIsEditing(false);
     } catch (error) {
-      console.log("Updating user failed", error.message);
       addNotification("Failed to update profile.", "error");
     }
   }

@@ -99,11 +99,9 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
 
     try {
       const bookingVenue = await createBooking(bookingData, accessToken);
-      console.log("Booked venue: ", bookingVenue);
       addNotification("Booked Venue successfully!", "success");
       navigate("/profile");
     } catch (error) {
-      console.log("Booking venue failed: ", error.message);
       if (!user) {
         addNotification("Please log in to create a booking.", "error");
       } else {

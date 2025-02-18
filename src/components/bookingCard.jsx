@@ -17,7 +17,6 @@ export default function BookingCard({ booking, onDelete }) {
     event.preventDefault();
     try {
       const deletedBooking = await deleteBooking(booking.id, accessToken);
-      console.log("Deleted booking: ", deletedBooking);
       addNotification("Booking deleted successfully!", "success");
 
       if (onDelete) {
