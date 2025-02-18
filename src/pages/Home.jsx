@@ -12,9 +12,7 @@ export default function Home() {
 
   useEffect(() => {
     async function loadVenues() {
-      console.log("fetching page: ", page);
       const newVenues = await fetchVenues(30, page);
-      console.log("this is newVenues: ", newVenues);
 
       const venuesWithImages = newVenues.filter(
         (venue) =>

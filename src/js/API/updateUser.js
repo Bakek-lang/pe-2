@@ -1,8 +1,6 @@
 import { API_BASE, API_HOLIDAZE, API_KEY, API_PROFILES } from "./constants";
 
 export async function updateUser(userData, user, accessToken) {
-  console.log("Access token: ", user.data.accessToken);
-  console.log("NAme: ", user.data.name);
   const response = await fetch(
     API_BASE + API_HOLIDAZE + API_PROFILES + "/" + user.data.name,
     {
@@ -15,7 +13,6 @@ export async function updateUser(userData, user, accessToken) {
       body: JSON.stringify(userData),
     }
   );
-  console.log("response:", response);
 
   if (!response.ok) {
     const errorData = await response.json();

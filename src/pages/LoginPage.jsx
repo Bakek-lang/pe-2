@@ -39,17 +39,16 @@ export default function LoginPage() {
   async function handleSubmit(event) {
     event.preventDefault();
     if (!validateForm()) {
-      console.log("Validation failed");
+      console.error("Validation failed");
       return;
     }
 
     try {
       const user = await loginUser(formData.email, formData.password);
-      console.log("Login successful!", user);
       setUser(user, user.data.accessToken);
       navigate("/");
     } catch (error) {
-      console.log("Login failed", error.message);
+      console.error("Login failed", error.message);
       setErrors({ form: "Invalid email or password." });
     }
   }

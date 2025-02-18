@@ -38,14 +38,22 @@ export default function UpdateVenuePage({ venue }) {
     setImageUrls((prevImageUrls) => [...prevImageUrls, ""]);
   }
 
+  function handleRemoveImage(index) {
+    setImageUrls((prevImageUrls) =>
+      prevImageUrls.filter((_, i) => i !== index)
+    );
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
+
+    const filteredImageUrls = imageUrls.filter((url) => url.trim() !== "");
 
     const venueData = {
       name,
       description,
-      ...(imageUrls.length > 0 && {
-        media: imageUrls.map((url, index) => ({
+      ...(filteredImageUrls.length > 0 && {
+        media: filteredImageUrls.map((url, index) => ({
           url,
           alt: `Image ${index + 1} of ${name}`,
         })),
@@ -57,11 +65,10 @@ export default function UpdateVenuePage({ venue }) {
 
     try {
       const updatedVenue = await updateVenue(venueData, accessToken, venue.id);
-      console.log("Updated Venue: ", updatedVenue);
       addNotification("Updated Venue successfully!", "success");
       navigate(`/venue/${updatedVenue.data.id}`);
     } catch (error) {
-      console.log("Updating venue failed:", error.message);
+      console.error("Updating venue failed:", error.message);
       addNotification("Failed to update venue.", "error");
     }
   }
@@ -91,14 +98,24 @@ export default function UpdateVenuePage({ venue }) {
 
         <label>Image URLs</label>
         {imageUrls.map((url, index) => (
-          <input
-            key={index}
-            type="text"
-            placeholder={`Image URL ${index + 1}`}
-            value={url}
-            onChange={(e) => handleImageChange(index, e.target.value)}
-            className="p-2 border rounded"
-          />
+          <div key={index} className="flex items-center gap-2">
+            <input
+              type="text"
+              placeholder={`Image URL ${index + 1}`}
+              value={url}
+              onChange={(e) => handleImageChange(index, e.target.value)}
+              className="p-2 border rounded flex-1"
+            />
+            {index > 0 && (
+              <button
+                type="button"
+                onClick={() => handleRemoveImage(index)}
+                className="bg-red-500 text-white p-1 rounded"
+              >
+                Remove
+              </button>
+            )}
+          </div>
         ))}
         <button
           type="button"

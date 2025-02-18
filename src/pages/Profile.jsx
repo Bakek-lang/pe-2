@@ -24,7 +24,6 @@ export default function Profile() {
     if (user.data.venueManager) {
       async function loadVenues() {
         const profileVenues = await fetchVenuesByProfile(user, accessToken);
-        console.log("This is profileVenues:", profileVenues);
         setVenues(profileVenues);
         setIsLoading(false);
       }
@@ -38,11 +37,8 @@ export default function Profile() {
     if (!user.data.venueManager) {
       async function loadBookings() {
         const profileBookings = await fetchBookingsByProfile(user, accessToken);
-        console.log("This is profileBookings: ", profileBookings);
         setBookings(profileBookings);
         setIsLoading(false);
-
-        console.log("bookings: ", bookings);
       }
 
       loadBookings();

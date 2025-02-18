@@ -10,11 +10,9 @@ export async function createBooking(bookingData, accessToken) {
     },
     body: JSON.stringify(bookingData),
   });
-  console.log("Response from createBooking: ", response);
 
   if (!response.ok) {
     const errorData = await response.json();
-    console.log("errorDAta: ", errorData);
     throw new Error(errorData.errors[0].message || "Failed to create booking");
   }
 

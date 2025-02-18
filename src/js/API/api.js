@@ -6,7 +6,7 @@ export async function fetchVenues(limit = 30, page = 1) {
     const data = await response.json();
     return data.data;
   } catch (error) {
-    console.log("Failed to fetch venues: ", error);
+    console.error("Failed to fetch venues: ", error);
     return [];
   }
 }

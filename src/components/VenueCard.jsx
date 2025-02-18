@@ -18,8 +18,7 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
     event.stopPropagation();
     event.preventDefault();
     try {
-      const deletedVenue = await deleteVenue(venue.id, accessToken);
-      console.log("deleted venue: ", deletedVenue);
+      await deleteVenue(venue.id, accessToken);
       addNotification("Venue deleted successfully!", "success");
 
       if (onDelete) {

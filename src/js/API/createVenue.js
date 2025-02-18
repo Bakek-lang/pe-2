@@ -10,7 +10,6 @@ export async function createVenue(venueData, accessToken) {
     },
     body: JSON.stringify(venueData),
   });
-  console.log("Response:", response);
 
   if (!response.ok) {
     const errorData = await response.json();

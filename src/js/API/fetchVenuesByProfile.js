@@ -7,7 +7,6 @@ import {
 } from "./constants";
 
 export async function fetchVenuesByProfile(user, accessToken) {
-  console.log("this is user: ", user);
   try {
     const response = await fetch(
       API_BASE +
@@ -26,10 +25,9 @@ export async function fetchVenuesByProfile(user, accessToken) {
       }
     );
     const venues = await response.json();
-    console.log("This is venues", venues);
     return venues.data || [];
   } catch (error) {
-    console.log("Failed to fetch venues: ", error);
+    console.error("Failed to fetch venues: ", error);
     return [];
   }
 }

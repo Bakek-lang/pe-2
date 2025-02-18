@@ -35,6 +35,12 @@ export default function CreateVenuePage() {
     setImageUrls((prevImageUrls) => [...prevImageUrls, ""]);
   }
 
+  function handleRemoveImage(index) {
+    setImageUrls((prevImageUrls) =>
+      prevImageUrls.filter((_, i) => i !== index)
+    );
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -55,15 +61,12 @@ export default function CreateVenuePage() {
       meta,
     };
 
-    console.log("VENUE DATA: ", venueData);
-
     try {
       const createdVenue = await createVenue(venueData, accessToken);
-      console.log("Created Venue", createdVenue);
       addNotification("Created Venue successfully!", "success");
       navigate(`/venue/${createdVenue.data.id}`);
     } catch (error) {
-      console.log("Creating venue failed", error.message);
+      console.error("Creating venue failed", error.message);
       addNotification("Failed to create a venue.", "error");
     }
   }
@@ -90,15 +93,25 @@ export default function CreateVenuePage() {
         ></textarea>
 
         {imageUrls.map((imageUrl, index) => (
-          <input
-            key={index}
-            type="text"
-            placeholder="Image URL"
-            value={imageUrl}
-            maxLength={300}
-            onChange={(e) => handleImageChange(index, e.target.value)}
-            className="p-2 border rounded"
-          />
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              placeholder="Image URL"
+              value={imageUrl}
+              maxLength={300}
+              onChange={(e) => handleImageChange(index, e.target.value)}
+              className="p-2 border rounded flex-1"
+            />
+            {index > 0 && (
+              <button
+                type="button"
+                onClick={() => handleRemoveImage(index)}
+                className="bg-red-500 text-white p-1 rounded"
+              >
+                Remove
+              </button>
+            )}
+          </div>
         ))}
 
         <button

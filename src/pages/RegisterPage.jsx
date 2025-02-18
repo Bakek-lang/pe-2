@@ -43,7 +43,7 @@ export default function RegisterPage() {
   async function handleSubmit(event) {
     event.preventDefault();
     if (!validateForm()) {
-      console.log("Validation failed");
+      console.error("Validation failed");
       return;
     }
 
@@ -53,13 +53,10 @@ export default function RegisterPage() {
         formData.email,
         formData.password
       );
-      console.log("Registration successful!", result);
       navigate("/login");
     } catch (error) {
-      console.log("Registration failed!", error.message);
+      console.error("Registration failed!", error.message);
     }
-
-    console.log("validation works");
   }
 
   return (
