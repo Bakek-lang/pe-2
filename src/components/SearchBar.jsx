@@ -49,7 +49,7 @@ export default function SearchBar() {
         currentPage++;
       } while (currentPage <= pageCount);
     } catch (error) {
-      console.log("Error fetching all pages: ", error);
+      console.error("Error fetching all pages: ", error);
     }
 
     return allVenues;
