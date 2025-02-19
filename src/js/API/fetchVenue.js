@@ -1,3 +1,10 @@
+/**
+ * Fetches details of a specific venue by its ID from the Holidaze API.
+ *
+ * @param {string} id - The unique identifier of the venue.
+ * @returns {Promise<Object>} A promise that resolves to the venue details, including owner and bookings.
+ * @throws {Error} Throws an error if the request fails.
+ */
 export async function fetchVenueById(id) {
   try {
     const response = await fetch(
