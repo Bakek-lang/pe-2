@@ -6,6 +6,10 @@ import useNotificationStore from "../js/store/useNotificationStore";
 import useAuthStore from "../js/store/useAuthStore";
 
 export default function VenueBookingsPage() {
+  useEffect(() => {
+    document.title = "Venue Bookings | Holidaze";
+  }, []);
+
   const { addNotification } = useNotificationStore();
   const { accessToken } = useAuthStore();
   const { venueId } = useParams();
