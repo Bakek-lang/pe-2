@@ -5,6 +5,10 @@ import useNotificationStore from "../js/store/useNotificationStore";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateVenuePage() {
+  useEffect(() => {
+    document.title = "Create Venue | Holidaze";
+  }, []);
+
   const { accessToken } = useAuthStore();
   const { addNotification } = useNotificationStore();
   const navigate = useNavigate();
