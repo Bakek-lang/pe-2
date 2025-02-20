@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { validateEmail } from "../js/errorHandling/validate/validateEmail";
 import { loginUser } from "../js/API/loginFetch";
 import { validatePassword } from "../js/errorHandling/validate/validatePassword";
@@ -6,6 +6,10 @@ import useAuthStore from "../js/store/useAuthStore";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+  useEffect(() => {
+    document.title = "Login | Holidaze";
+  }, []);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
