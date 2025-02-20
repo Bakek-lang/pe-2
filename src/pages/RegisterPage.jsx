@@ -4,8 +4,10 @@ import { validateName } from "../js/errorHandling/validate/validateName";
 import { validatePassword } from "../js/errorHandling/validate/validatePassword";
 import { registerUser } from "../js/API/registerFetch";
 import { useNavigate } from "react-router-dom";
+import useNotificationStore from "../js/store/useNotificationStore";
 
 export default function RegisterPage() {
+  const { addNotification } = useNotificationStore();
   useEffect(() => {
     document.title = "Register | Holidaze";
   }, []);
@@ -60,6 +62,7 @@ export default function RegisterPage() {
       navigate("/login");
     } catch (error) {
       console.error("Registration failed!", error.message);
+      addNotification(`${error.message}`, "error");
     }
   }
 
