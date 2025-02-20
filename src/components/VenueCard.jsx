@@ -25,7 +25,7 @@ export default function VenueCard({ venue, showActions = false, onDelete }) {
         onDelete(venue.id);
       }
     } catch (error) {
-      addNotification("Failed to delete venue.", "error");
+      addNotification(`${error.message}`, "error");
     }
   }
 

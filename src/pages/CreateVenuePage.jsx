@@ -71,7 +71,7 @@ export default function CreateVenuePage() {
       navigate(`/venue/${createdVenue.data.id}`);
     } catch (error) {
       console.error("Creating venue failed", error.message);
-      addNotification("Failed to create a venue.", "error");
+      addNotification(`${error.message}`, "error");
     }
   }
 

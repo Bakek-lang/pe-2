@@ -20,7 +20,7 @@ export async function createVenue(venueData, accessToken) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || "Failed to create venue");
+    throw new Error(errorData.errors[0].message || "Failed to create venue");
   }
 
   return response.json();

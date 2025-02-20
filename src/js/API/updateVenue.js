@@ -24,7 +24,7 @@ export async function updateVenue(venueData, accessToken, id) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || "Failed to update venue");
+    throw new Error(errorData.errors[0].message || "Failed to update venue");
   }
 
   return response.json();

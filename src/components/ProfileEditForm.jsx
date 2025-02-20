@@ -33,7 +33,7 @@ export default function ProfileEditForm({ setIsEditing }) {
       addNotification("Profile updated successfully!", "success");
       setIsEditing(false);
     } catch (error) {
-      addNotification("Failed to update profile.", "error");
+      addNotification(`${error.message}`, "error");
     }
   }
 
