@@ -73,7 +73,7 @@ export default function UpdateVenuePage({ venue }) {
       navigate(`/venue/${updatedVenue.data.id}`);
     } catch (error) {
       console.error("Updating venue failed:", error.message);
-      addNotification("Failed to update venue.", "error");
+      addNotification(`${error.message}`, "error");
     }
   }
 
