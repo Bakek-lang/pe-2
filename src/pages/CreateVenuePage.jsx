@@ -93,7 +93,7 @@ export default function CreateVenuePage() {
         ></textarea>
 
         {imageUrls.map((imageUrl, index) => (
-          <div className="flex items-center gap-2">
+          <div key={index} className="flex items-center gap-2">
             <input
               type="text"
               placeholder="Image URL"
