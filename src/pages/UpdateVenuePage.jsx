@@ -39,7 +39,9 @@ export default function UpdateVenuePage({ venue }) {
   }
 
   function handleAddImage() {
-    setImageUrls((prevImageUrls) => [...prevImageUrls, ""]);
+    if (imageUrls.length < 8) {
+      setImageUrls((prevImageUrls) => [...prevImageUrls, ""]);
+    }
   }
 
   function handleRemoveImage(index) {
@@ -121,13 +123,15 @@ export default function UpdateVenuePage({ venue }) {
             )}
           </div>
         ))}
-        <button
-          type="button"
-          onClick={handleAddImage}
-          className="bg-green-500 text-black p-2 rounded"
-        >
-          Add Another Image
-        </button>
+        {imageUrls.length < 8 && (
+          <button
+            type="button"
+            onClick={handleAddImage}
+            className="bg-green-500 text-black p-2 rounded"
+          >
+            Add Another Image
+          </button>
+        )}
 
         <label>Price</label>
         <input
