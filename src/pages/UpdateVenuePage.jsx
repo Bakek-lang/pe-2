@@ -5,6 +5,10 @@ import { updateVenue } from "../js/API/updateVenue";
 import { useNavigate } from "react-router-dom";
 
 export default function UpdateVenuePage({ venue }) {
+  useEffect(() => {
+    document.title = "Update Venue | Holidaze";
+  }, []);
+
   const { accessToken } = useAuthStore();
   const { addNotification } = useNotificationStore();
   const navigate = useNavigate();
