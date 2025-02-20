@@ -7,6 +7,10 @@ import BookingCalendar from "../components/BookingCalendar";
 import VenuePageSkeleton from "../skeleton/VenuePageSkeleton";
 
 export default function VenuePage() {
+  useEffect(() => {
+    document.title = "Venue | Holidaze";
+  }, []);
+
   const [venue, setVenue] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
