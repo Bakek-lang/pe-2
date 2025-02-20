@@ -23,7 +23,7 @@ export async function deleteBooking(bookingId, accessToken) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || "Failed to delete booking");
+    throw new Error(errorData.errors[0].message || "Failed to delete booking");
   }
 
   if (response.status === 204) {

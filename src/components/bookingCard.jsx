@@ -23,7 +23,7 @@ export default function BookingCard({ booking, onDelete }) {
         onDelete(booking.id);
       }
     } catch (error) {
-      addNotification("Failed to delete venue.", "error");
+      addNotification(`${error.message}`, "error");
     }
   }
   return (
