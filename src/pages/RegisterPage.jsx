@@ -62,10 +62,7 @@ export default function RegisterPage() {
       navigate("/login");
     } catch (error) {
       console.error("Registration failed!", error.message);
-      addNotification(
-        `${error.message || "Registration failed. Try again later."}`,
-        "error"
-      );
+      addNotification(`${error.message}`, "error");
     }
   }
 
