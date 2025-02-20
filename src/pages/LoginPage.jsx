@@ -4,8 +4,10 @@ import { loginUser } from "../js/API/loginFetch";
 import { validatePassword } from "../js/errorHandling/validate/validatePassword";
 import useAuthStore from "../js/store/useAuthStore";
 import { useNavigate } from "react-router-dom";
+import useNotificationStore from "../js/store/useNotificationStore";
 
 export default function LoginPage() {
+  const { addNotification } = useNotificationStore();
   useEffect(() => {
     document.title = "Login | Holidaze";
   }, []);
@@ -53,6 +55,7 @@ export default function LoginPage() {
       navigate("/");
     } catch (error) {
       console.error("Login failed", error.message);
+      addNotification(`${error.message}`, "error");
       setErrors({ form: "Invalid email or password." });
     }
   }
