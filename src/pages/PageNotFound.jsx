@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 
 export default function PageNotFound() {
+  useEffect(() => {
+    document.title = "404 Not Found";
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen text-center p-4">
       <h1 className="text-6xl font-bold">404</h1>
