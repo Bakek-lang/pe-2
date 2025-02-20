@@ -36,7 +36,9 @@ export default function CreateVenuePage() {
   }
 
   function handleAddImage() {
-    setImageUrls((prevImageUrls) => [...prevImageUrls, ""]);
+    if (imageUrls.length < 8) {
+      setImageUrls((prevImageUrls) => [...prevImageUrls, ""]);
+    }
   }
 
   function handleRemoveImage(index) {
@@ -100,7 +102,7 @@ export default function CreateVenuePage() {
           <div key={index} className="flex items-center gap-2">
             <input
               type="text"
-              placeholder="Image URL"
+              placeholder={`Image URL ${index + 1}`}
               value={imageUrl}
               maxLength={300}
               onChange={(e) => handleImageChange(index, e.target.value)}
@@ -118,13 +120,15 @@ export default function CreateVenuePage() {
           </div>
         ))}
 
-        <button
-          type="button"
-          onClick={handleAddImage}
-          className="bg-green-500 text-black p-2 rounded"
-        >
-          Add Another Image
-        </button>
+        {imageUrls.length < 8 && (
+          <button
+            type="button"
+            onClick={handleAddImage}
+            className="bg-green-500 text-black p-2 rounded"
+          >
+            Add Another Image
+          </button>
+        )}
 
         <input
           type="number"
