@@ -8,9 +8,9 @@ export default function PageNotFound() {
         Oops! The page you're looking for doesn't exist.
       </p>
       <Link href="/">
-        <a className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700">
+        <span className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700">
           Return Home
-        </a>
+        </span>
       </Link>
     </div>
   );
