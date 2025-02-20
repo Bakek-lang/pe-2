@@ -75,7 +75,7 @@ npm run preview
 
 ### Deployment
 
-The project is deployed and hosted on Netlify. You can view the live version of the project at: [Holidaze](#)
+The project is deployed and hosted on Netlify. You can view the live version of the project at: [Holidaze](https://holidaze-pe2-bakek.netlify.app/)
 
 ### User Stories
 
