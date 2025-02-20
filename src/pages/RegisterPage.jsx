@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { validateEmail } from "../js/errorHandling/validate/validateEmail";
 import { validateName } from "../js/errorHandling/validate/validateName";
 import { validatePassword } from "../js/errorHandling/validate/validatePassword";
@@ -6,6 +6,10 @@ import { registerUser } from "../js/API/registerFetch";
 import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
+  useEffect(() => {
+    document.title = "Register | Holidaze";
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",

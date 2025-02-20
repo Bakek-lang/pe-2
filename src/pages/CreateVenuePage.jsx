@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createVenue } from "../js/API/createVenue";
 import useAuthStore from "../js/store/useAuthStore";
 import useNotificationStore from "../js/store/useNotificationStore";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateVenuePage() {
+  useEffect(() => {
+    document.title = "Create Venue | Holidaze";
+  }, []);
+
   const { accessToken } = useAuthStore();
   const { addNotification } = useNotificationStore();
   const navigate = useNavigate();
@@ -93,7 +97,7 @@ export default function CreateVenuePage() {
         ></textarea>
 
         {imageUrls.map((imageUrl, index) => (
-          <div className="flex items-center gap-2">
+          <div key={index} className="flex items-center gap-2">
             <input
               type="text"
               placeholder="Image URL"

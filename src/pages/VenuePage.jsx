@@ -7,6 +7,10 @@ import BookingCalendar from "../components/BookingCalendar";
 import VenuePageSkeleton from "../skeleton/VenuePageSkeleton";
 
 export default function VenuePage() {
+  useEffect(() => {
+    document.title = "Venue | Holidaze";
+  }, []);
+
   const [venue, setVenue] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -103,7 +107,7 @@ export default function VenuePage() {
             )}
           </div>
         </div>
-        <div className="md:ml-8 w-full max-w-xl">
+        <div className="md:ml-8 w-full md:max-w-xl">
           <div className="flex justify-between items-center">
             <div className="mt-2 flex items-center gap-3">
               <img

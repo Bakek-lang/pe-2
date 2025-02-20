@@ -6,6 +6,10 @@ import { isValidUrl } from "../js/utils/isValidUrl";
 import VenueCardSkeleton from "../skeleton/VenueCardSkeleton";
 
 export default function Home() {
+  useEffect(() => {
+    document.title = "Home | Holidaze";
+  }, []);
+
   const [venues, setVenues] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);

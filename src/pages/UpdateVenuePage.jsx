@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuthStore from "../js/store/useAuthStore";
 import useNotificationStore from "../js/store/useNotificationStore";
 import { updateVenue } from "../js/API/updateVenue";
 import { useNavigate } from "react-router-dom";
 
 export default function UpdateVenuePage({ venue }) {
+  useEffect(() => {
+    document.title = "Update Venue | Holidaze";
+  }, []);
+
   const { accessToken } = useAuthStore();
   const { addNotification } = useNotificationStore();
   const navigate = useNavigate();

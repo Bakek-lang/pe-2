@@ -29,7 +29,7 @@ export default function BookingCard({ booking, onDelete }) {
   return (
     <Link to={`/venue/${booking.venue.id}`}>
       {" "}
-      <div className="rounded-lg shadow-lg mx-4 mt-4 flex flex-col max-w-sm h-full w-80 sm:w-96 justify-around ">
+      <div className="rounded-lg shadow-lg mx-4 mt-4 flex flex-col max-w-sm h-full w-72 sm:w-96 justify-around ">
         <div className="w-full h-60 overflow-hidden">
           <img
             src={booking.venue.media[0].url}
