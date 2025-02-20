@@ -12,6 +12,10 @@ import UserProfileSkeleton from "../skeleton/UserProfileSkeleton";
 import BookingCardSkeleton from "../skeleton/BookingCardSkeleton";
 
 export default function Profile() {
+  useEffect(() => {
+    document.title = "Profile | Holidaze";
+  }, []);
+
   const { user, accessToken } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
   const [venues, setVenues] = useState([]);
