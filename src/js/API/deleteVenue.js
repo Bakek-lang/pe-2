@@ -23,7 +23,7 @@ export async function deleteVenue(venueId, accessToken) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || "Failed to delete venue");
+    throw new Error(errorData.errors[0].message || "Failed to delete venue");
   }
 
   if (response.status === 204) {
