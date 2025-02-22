@@ -129,8 +129,18 @@ export default function BookingCalendar({ bookings, venueId, maxGuests }) {
       <div className="mt-4 text-center">
         {selectedRange && selectedRange.length === 2 && (
           <p>
-            Selected: {selectedRange[0].toLocaleDateString()} -{" "}
-            {selectedRange[1].toLocaleDateString()}
+            Selected:{" "}
+            {selectedRange[0].toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}{" "}
+            -{" "}
+            {selectedRange[1].toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
           </p>
         )}
       </div>
