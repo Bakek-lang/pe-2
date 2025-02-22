@@ -9,8 +9,22 @@ export default function BookingCard({ booking, onDelete }) {
   const { addNotification } = useNotificationStore();
   const { accessToken } = useAuthStore();
 
-  const formattedStartDate = new Date(booking.dateFrom).toLocaleDateString();
-  const formattedEndDate = new Date(booking.dateTo).toLocaleDateString();
+  const formattedStartDate = new Date(booking.dateFrom).toLocaleDateString(
+    "en-GB",
+    {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }
+  );
+  const formattedEndDate = new Date(booking.dateTo).toLocaleDateString(
+    "en-GB",
+    {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }
+  );
 
   async function handleDelete(event) {
     event.stopPropagation();
