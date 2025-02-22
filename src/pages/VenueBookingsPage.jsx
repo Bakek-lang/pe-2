@@ -72,11 +72,19 @@ export default function VenueBookingsPage() {
               </p>
               <p>
                 <span className="font-semibold">Date From:</span>{" "}
-                {new Date(booking.dateFrom).toLocaleDateString()}
+                {new Date(booking.dateFrom).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
               </p>
               <p>
                 <span className="font-semibold">Date To:</span>{" "}
-                {new Date(booking.dateTo).toLocaleDateString()}
+                {new Date(booking.dateTo).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
               </p>
               <p>
                 <span className="font-semibold">Guests:</span> {booking.guests}
