@@ -1,5 +1,7 @@
 # Project Exam 2 - Holidaze
 
+![Project Preview](src/assets/holidaze.png)
+
 ## Overview
 
 Holidaze is a modern front-end application built for an accommodation booking platform. Developed as my Project Exam 2—the final exam in my 2 year frontend development education at Noroff—this project showcases my development, visual design, and technical skills acquired over the past two years. The application features both a customer-facing side, where users can browse and book venues, and an admin-facing side, where venue managers can create, update, and manage venues and their bookings.
